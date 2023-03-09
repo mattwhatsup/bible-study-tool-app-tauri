@@ -27,8 +27,11 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
-      "targets": "all"
+      "identifier": "com.cruelyouth.bst-app",
+      "targets": "all",
+      "resources": [
+        "resources/*"
+      ]
     },
     "security": {
       "csp": null
