@@ -1,8 +1,13 @@
 import { FunctionComponent } from 'react'
+import Tabs from './components/Tabs'
 interface AppProps {}
 
 const App: FunctionComponent<AppProps> = () => {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>
+  return (
+    <div className="w-screen">
+      <Tabs />
+    </div>
+  )
 }
 
 export default App
