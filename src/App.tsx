@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react'
 import BookList from './components-ui/BookList'
+import BookPopupSelector from './components-ui/BookPopupSelector'
 import ChapterList from './components-ui/ChapterList'
 import ChapterPopupSelector from './components-ui/ChapterPopupSelector'
 import Dialog from './components-ui/Dialog'
@@ -17,10 +18,12 @@ const App: FunctionComponent<AppProps> = () => {
       <VersionDropDown />
       <Dialog /> */}
       {/* <div className="tw-w-52 tw-m-4 tw-border tw-p-2  tw-bg-white tw-rounded-md tw-shadow-sm">
-        <ChapterList />
+        <BookList />
       </div> */}
 
-      <ChapterPopupSelector />
+      {/* <ChapterPopupSelector /> */}
+      <div className=" tw-h-6"></div>
+      <BookPopupSelector />
     </div>
   )
 }

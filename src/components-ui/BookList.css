@@ -17,7 +17,21 @@
   @apply tw-bg-gray-200;
 }
 .list-height {
-  @apply tw-h-32;
+  @apply tw-h-[23rem];
+}
+
+.pop::before {
+  position: absolute;
+  width: 0.71428571em;
+  height: 0.71428571em;
+  content: '';
+  background-color: white;
+  transform: rotate(45deg);
+  z-index: 2;
+  box-shadow: -1px -1px 0 0 #e5e7eb;
+
+  top: -0.30714286em;
+  left: 1em;
 }
 
 /* .list-content::-webkit-scrollbar {
