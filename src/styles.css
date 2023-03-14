@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+/* * {
   box-sizing: border-box;
 }
 
@@ -58,4 +58,8 @@
 .window-content {
   height: 46em;
   background-color: #fff;
+} */
+
+body {
+  @apply bg-gray-100;
 }
