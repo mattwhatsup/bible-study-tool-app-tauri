@@ -4,23 +4,30 @@ interface VersionDropDownProps {}
 
 const VersionDropDown: FunctionComponent<VersionDropDownProps> = () => {
   return (
-    <div className="dropdown dropdown-bottom dropdown-start">
-      <label tabIndex={0} className="btn m-1 btn-sm btn-primary">
+    <div className="tw-dropdown tw-dropdown-bottom tw-dropdown-start">
+      <label tabIndex={0} className="tw-btn tw-m-1 tw-btn-sm tw-btn-primary">
         <i className="bi bi-book"></i>
-        <span className=" ml-1">和合本</span>
+        <span className="tw-ml-2">和合本</span>
       </label>
-      <ul
-        tabIndex={0}
-        className="dropdown-content menu p-2 shadow bg-base-100 w-52 mt-1 rounded-lg text-sm"
-      >
+      <ul tabIndex={0} className="dropdown-menu tw-dropdown-content tw-block">
         <li>
-          <a>Item 1</a>
+          <h6 className="dropdown-header">选择圣经版本</h6>
+        </li>
+
+        <li>
+          <a className="dropdown-item" href="#">
+            Action
+          </a>
         </li>
         <li>
-          <a className="active">Item 2</a>
+          <a className="dropdown-item active" href="#">
+            Another action
+          </a>
         </li>
         <li>
-          <a>Item 3</a>
+          <a className="dropdown-item" href="#">
+            Something else here
+          </a>
         </li>
       </ul>
     </div>

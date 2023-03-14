@@ -4,7 +4,7 @@ interface SwitchButtonProps {}
 
 const SwitchButton: FunctionComponent<SwitchButtonProps> = () => {
   return (
-    <button className="btn btn-primary btn-sm switch-btn">
+    <button className="tw-btn tw-btn-primary tw-btn-sm switch-btn">
       <i className="bi bi-toggle-on"></i>
       <span>原文</span>
     </button>
