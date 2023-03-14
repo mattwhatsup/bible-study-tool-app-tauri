@@ -16,3 +16,19 @@
 .book-grid > li.active {
   @apply tw-bg-gray-200;
 }
+.list-height {
+  @apply tw-h-32;
+}
+
+/* .list-content::-webkit-scrollbar {
+  width: 3px;
+}
+
+.list-content::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.list-content::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+} */
