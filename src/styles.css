@@ -63,3 +63,17 @@
 body {
   @apply tw-bg-gray-100;
 }
+
+.pop.lt::before {
+  position: absolute;
+  width: 0.71428571em;
+  height: 0.71428571em;
+  content: '';
+  background-color: white;
+  transform: rotate(45deg);
+  z-index: 2;
+  box-shadow: -1px -1px 0 0 #e5e7eb;
+
+  top: -0.30714286em;
+  left: 1em;
+}
