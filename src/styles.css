@@ -64,16 +64,29 @@ body {
   @apply tw-bg-gray-100;
 }
 
-.pop.lt::before {
+.pop::before {
   position: absolute;
   width: 0.71428571em;
   height: 0.71428571em;
   content: '';
   background-color: white;
-  transform: rotate(45deg);
   z-index: 2;
-  box-shadow: -1px -1px 0 0 #e5e7eb;
+}
 
+.pop.lt::before {
   top: -0.30714286em;
   left: 1em;
+  transform: rotate(45deg);
+  box-shadow: -1px -1px 0 0 var(--tw-shadow-color);
+  border-top: 1px solid var(--tw-shadow-color);
+  border-left: 1px solid var(--tw-shadow-color);
+}
+
+.pop.rt::before {
+  top: -0.30714286em;
+  right: 1em;
+  transform: rotate(45deg);
+  box-shadow: -1px -1px 0 0 var(--tw-shadow-color);
+  border-top: 1px solid var(--tw-shadow-color);
+  border-left: 1px solid var(--tw-shadow-color);
 }

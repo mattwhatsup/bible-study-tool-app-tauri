@@ -8,9 +8,11 @@ const App: FunctionComponent<AppProps> = () => {
   return (
     <div className="tw-w-screen tw-h-screen">
       <Tabs />
-
       <div className=" tw-h-6"></div>
-      <BookPopupSelector />
+      <div className=" tw-absolute tw-left-32 ">
+        <VersionDropDown />
+      </div>
+      {/* <BookPopupSelector /> */}
     </div>
   )
 }
