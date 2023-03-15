@@ -6,7 +6,7 @@ const VersionDropDown: FunctionComponent<VersionDropDownProps> = () => {
   return (
     <div className="tw-dropdown tw-dropdown-bottom tw-dropdown-end">
       <label tabIndex={0} className="tw-btn tw-m-1 tw-btn-sm tw-btn-primary">
-        <i className="bi bi-book"></i>
+        <i className="fa-solid fa-book-bible"></i>
         <span className="tw-ml-2">和合本</span>
       </label>
       <ul
