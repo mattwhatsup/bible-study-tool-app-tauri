@@ -1,0 +1,13 @@
+@media (max-height: 300px) {
+  .sidebar-tabs {
+    display: none;
+  }
+}
+
+.sidebar-tabs > li {
+  @apply tw-border-l-2 tw-border-l-transparent;
+}
+
+.sidebar-tabs > li.active {
+  @apply tw-border-l-2 tw-border-l-white;
+}
