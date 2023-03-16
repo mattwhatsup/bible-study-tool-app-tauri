@@ -1,11 +1,23 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-#![allow(unused)]
+// #![allow(unused)]
 
 #[cfg(target_os = "macos")]
 #[macro_use]
 extern crate objc;
+use bible_study_tool_app::{test_echo, test_sql_query};
 use tauri::Manager;
+
+#[tauri::command]
+fn test_echo_fn() {
+    test_echo("hahah".to_string())
+}
+
+#[tauri::command]
+fn test_sql_query_fn() {
+    let names = test_sql_query();
+    println!("{:?}", names.unwrap())
+}
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
@@ -41,7 +53,11 @@ fn main() {
         //     });
         //     Ok(())
         // })
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![
+            greet,
+            test_echo_fn,
+            test_sql_query_fn
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
