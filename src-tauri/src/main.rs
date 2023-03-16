@@ -14,9 +14,9 @@ fn test_echo_fn() {
 }
 
 #[tauri::command]
-fn test_sql_query_fn() {
+fn test_sql_query_fn() -> Vec<String> {
     let names = test_sql_query();
-    println!("{:?}", names.unwrap())
+    names.unwrap()
 }
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command

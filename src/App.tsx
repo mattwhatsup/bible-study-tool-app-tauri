@@ -18,7 +18,9 @@ const App: FunctionComponent<AppProps> = () => {
       <button
         onClick={() => {
           // invoke('test_echo_fn')
-          invoke('test_sql_query_fn')
+          invoke('test_sql_query_fn').then((names) => {
+            console.log(names)
+          })
         }}
       >
         click
