@@ -106,7 +106,10 @@ fn main() {
         //     Ok(())
         // })
         .manage(DbConnection {
-            db: Default::default(),
+            // db: Default::default(),
+            db: Mutex::new(Some(
+                Connection::open("./resources/bible_YHWH_2018.sqlite").unwrap(),
+            )),
         })
         .invoke_handler(tauri::generate_handler![
             connect,
