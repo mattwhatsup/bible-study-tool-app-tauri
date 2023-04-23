@@ -7,7 +7,7 @@
 extern crate objc;
 // use bible_study_tool_app::Database;
 use rusqlite::Connection;
-// use tauri::Manager;
+use tauri::Manager;
 
 // -- use Tauri State
 use std::{collections::HashMap, sync::Mutex};
@@ -47,6 +47,14 @@ fn greet(name: &str) -> String {
 
 fn main() {
     tauri::Builder::default()
+        .setup(|app| {
+            #[cfg(debug_assertions)] // only include this code on debug builds
+            {
+                let window = app.get_window("main").unwrap();
+                window.open_devtools();
+            }
+            Ok(())
+        })
         .manage(DbConnection {
             // db: Default::default(),
             db: Mutex::new(Some(
