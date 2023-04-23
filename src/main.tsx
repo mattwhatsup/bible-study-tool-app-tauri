@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import './styles.css'
 import { store } from './app/store'
+import './app/shortcuts'
 
 const router = createBrowserRouter([
   {
