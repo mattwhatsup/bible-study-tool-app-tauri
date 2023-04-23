@@ -1,3 +1,5 @@
+window.global = window
+
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
@@ -9,11 +11,16 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import './styles.css'
 import { store } from './app/store'
 import './app/shortcuts'
+import { Root } from '@redux-devtools/app'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: (
+      <>
+        <App />
+      </>
+    ),
   },
 ])
 
