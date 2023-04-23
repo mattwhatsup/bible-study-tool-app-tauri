@@ -14,6 +14,8 @@ This template should help get you started developing with Tauri, React and Types
 - [Tauri Config](https://tauri.app/v1/api/config)
 - [Tauri JS API](https://tauri.app/v1/api/js/)
 - [Tauri Rust API](https://docs.rs/tauri/1.2.4/tauri/)
+- [Redux](https://redux.js.org/introduction/getting-started)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
 
 ## Dev Notes
 
