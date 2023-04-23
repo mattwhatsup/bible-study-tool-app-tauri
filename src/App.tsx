@@ -10,6 +10,7 @@ import Sidebar from './components-ui/Sidebar'
 import Tabs from './components-ui/Tabs'
 import TextInputDropDown from './components-ui/TextInputDropDown'
 import VersionDropDown from './components-ui/VersionDropDown'
+import { Counter } from './features/counter/Counter'
 interface AppProps {}
 
 const App: FunctionComponent<AppProps> = () => {
@@ -32,6 +33,8 @@ const App: FunctionComponent<AppProps> = () => {
       >
         query3
       </button>
+
+      <Counter />
     </div>
   )
 }
