@@ -26,3 +26,4 @@ This template should help get you started developing with Tauri, React and Types
 - [配置 Tailwind CSS 和 DaisyUI 插件](http://www.cruelyouth.com/2023/03/bst-tauri-%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%ef%bc%884%ef%bc%89-tailwind-css-daisyui/)
 - [自定义 Tauri 窗口标题栏](http://www.cruelyouth.com/2023/03/bst-tauri-%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%ef%bc%885%ef%bc%89-%e8%87%aa%e5%ae%9a%e4%b9%89%e7%aa%97%e5%8f%a3%e6%a0%87%e9%a2%98%e6%a0%8f/) （效果不好的话打算先不用自定义标题栏）
 - [为 Tauri 接口注入全局变量](http://www.cruelyouth.com/2023/03/bst-tauri-%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%ef%bc%886%ef%bc%89-%e4%b8%batauri%e6%8e%a5%e5%8f%a3%e6%b3%a8%e5%85%a5%e5%85%a8%e5%b1%80%e5%8f%98%e9%87%8f/)
+- [Tauri 里使用 redux devtools](http://www.cruelyouth.com/2023/04/bst-tauri-%e5%bc%80%e5%8f%91%e7%ac%94%e8%ae%b0%ef%bc%887%ef%bc%89-%e4%bd%bf%e7%94%a8redux-devtools/)
