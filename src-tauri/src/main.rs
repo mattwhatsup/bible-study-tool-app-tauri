@@ -24,7 +24,7 @@ fn connect(connection: State<DbConnection>) {
 }
 
 #[tauri::command]
-fn query(some_param: i32, connection: State<DbConnection>) -> Vec<String> {
+fn sample_query(some_param: i32, connection: State<DbConnection>) -> Vec<String> {
     println!("some_param={}", some_param);
 
     let db = connection.db.lock();
@@ -61,7 +61,7 @@ fn main() {
                 Connection::open("./resources/bible_YHWH_2018.sqlite").unwrap(),
             )),
         })
-        .invoke_handler(tauri::generate_handler![connect, greet, query])
+        .invoke_handler(tauri::generate_handler![connect, greet, sample_query])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

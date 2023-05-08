@@ -27,7 +27,7 @@ const App: FunctionComponent<AppProps> = () => {
 
       <button
         onClick={async () => {
-          const names = await invoke('query', { someParam: 123 })
+          const names = await invoke('sample_query', { someParam: 123 })
           console.log(names)
         }}
       >
