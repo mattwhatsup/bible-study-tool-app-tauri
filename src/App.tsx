@@ -31,7 +31,16 @@ const App: FunctionComponent<AppProps> = () => {
           console.log(names)
         }}
       >
-        query3
+        query
+      </button>
+
+      <button
+        onClick={async () => {
+          const books = await invoke('tauri_query_all_books')
+          console.log(books)
+        }}
+      >
+        all books
       </button>
 
       <Counter />

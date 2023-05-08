@@ -11,7 +11,7 @@ pub fn bible_connection() -> MyResult<Connection> {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use super::{bible::query_all_bookgroups, *};
     #[test]
     fn test_bible_connection() {
         let conn = bible_connection();
@@ -47,6 +47,14 @@ mod tests {
             bible::BookNameType::SimplifiedChinese,
         )?;
         assert!(book.is_none());
+        Ok(())
+    }
+
+    #[test]
+    fn test_query_all_bookgroups() -> MyResult<()> {
+        let conn = bible_connection()?;
+        let bookgroups = query_all_bookgroups(&conn)?;
+        assert_eq!(bookgroups.len(), 20);
         Ok(())
     }
 }

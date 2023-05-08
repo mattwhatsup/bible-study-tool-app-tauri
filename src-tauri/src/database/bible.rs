@@ -2,13 +2,13 @@ use rusqlite::{Connection, Row};
 
 use crate::MyResult;
 
-#[derive(Debug)]
+#[derive(Debug, serde::Serialize)]
 pub enum OtOrNt {
     Ot,
     Nt,
 }
 
-#[derive(Debug)]
+#[derive(Debug, serde::Serialize)]
 pub struct Book {
     id: i32,
     name_cn: String,
@@ -56,7 +56,6 @@ pub fn query_all_books(
     for row in rows {
         books.push(row?);
     }
-    // println!("{:?}", books);
 
     Ok(books)
 }
@@ -87,4 +86,49 @@ pub fn query_book_by_name(
         Ok(book) => Some(book),
         _ => None,
     })
+}
+
+#[derive(Debug)]
+pub struct BookGroup {
+    id: i32,
+    ot_or_nt: OtOrNt,
+    name_en: String,
+    name_cn: String,
+    name_tr: String,
+    seq: i32,
+    abbr_cn: String,
+    abbr_en: String,
+    abbr_tr: String,
+}
+
+pub fn query_all_bookgroups(
+    conn: &Connection,
+) -> MyResult<Vec<BookGroup>> {
+    let mut stmt =
+        conn.prepare("select * from bible_bookgroup")?;
+
+    let rows = stmt.query_map([], |row| {
+        Ok(BookGroup {
+            id: row.get(0)?,
+            ot_or_nt: match row
+                .get::<_, String>(1)?
+                .as_str()
+            {
+                "H" => OtOrNt::Ot,
+                _ => OtOrNt::Nt,
+            },
+            name_cn: row.get(2)?,
+            name_en: row.get(3)?,
+            name_tr: row.get(4)?,
+            seq: row.get(5)?,
+            abbr_cn: row.get(6)?,
+            abbr_en: row.get(7)?,
+            abbr_tr: row.get(8)?,
+        })
+    })?;
+    let mut bookgroups = vec![];
+    for row in rows {
+        bookgroups.push(row?);
+    }
+    Ok(bookgroups)
 }
