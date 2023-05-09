@@ -48,7 +48,7 @@ pub fn query_all_books(
     conn: &Connection,
 ) -> MyResult<Vec<Book>> {
     let mut stmt =
-        conn.prepare("select * from bible_book")?;
+        conn.prepare("SELECT * FROM bible_book")?;
     let rows = stmt.query_map([], |row| {
         Ok(book_from_row(row).unwrap())
     })?;
@@ -71,7 +71,7 @@ pub fn query_book_by_name(
     name_type: BookNameType,
 ) -> MyResult<Option<Book>> {
     let mut stmt = conn.prepare(
-        format!("select * from bible_book where {type}=:name", type = match name_type {
+        format!("SELECT * FROM bible_book WHERE {type}=:name", type = match name_type {
             BookNameType::English => "name_en",
             BookNameType::SimplifiedChinese => {
                 "name_cn"
@@ -105,7 +105,7 @@ pub fn query_all_bookgroups(
     conn: &Connection,
 ) -> MyResult<Vec<BookGroup>> {
     let mut stmt =
-        conn.prepare("select * from bible_bookgroup")?;
+        conn.prepare("SELECT * FROM bible_bookgroup")?;
 
     let rows = stmt.query_map([], |row| {
         Ok(BookGroup {
@@ -131,4 +131,19 @@ pub fn query_all_bookgroups(
         bookgroups.push(row?);
     }
     Ok(bookgroups)
+}
+
+pub fn query_book_group_set(
+    conn: &Connection,
+    groupId: i32,
+) -> MyResult<Vec<i32>> {
+    let mut stmt = conn.prepare(
+        "SELECT book_id FROM bible_bookgroup_books WHERE bookgroup_id=:bookgroup_id"
+    )?;
+
+    let rows = stmt.query_map(
+        &[(":bookgroup_id", &groupId.to_string())],
+        |row| Ok(row.get::<_, i32>(0)?),
+    )?;
+    Ok(rows.map(|row| row.unwrap()).collect())
 }

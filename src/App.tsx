@@ -36,7 +36,7 @@ const App: FunctionComponent<AppProps> = () => {
 
       <button
         onClick={async () => {
-          const books = await invoke('tauri_query_all_books')
+          const books = await invoke('be_query_all_books')
           console.log(books)
         }}
       >

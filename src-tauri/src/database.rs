@@ -11,7 +11,12 @@ pub fn bible_connection() -> MyResult<Connection> {
 
 #[cfg(test)]
 mod tests {
-    use super::{bible::query_all_bookgroups, *};
+    use super::{
+        bible::{
+            query_all_bookgroups, query_book_group_set,
+        },
+        *,
+    };
     #[test]
     fn test_bible_connection() {
         let conn = bible_connection();
@@ -55,6 +60,15 @@ mod tests {
         let conn = bible_connection()?;
         let bookgroups = query_all_bookgroups(&conn)?;
         assert_eq!(bookgroups.len(), 20);
+        Ok(())
+    }
+
+    #[test]
+    fn test_query_all_peters_letters_by_groupid(
+    ) -> MyResult<()> {
+        let conn = bible_connection()?;
+        let book_ids = query_book_group_set(&conn, 6)?;
+        assert_eq!(book_ids, vec![142214, 143978]);
         Ok(())
     }
 }

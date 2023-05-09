@@ -66,7 +66,7 @@ fn greet(name: &str) -> String {
 }
 
 #[tauri::command]
-fn tauri_query_all_books(
+fn be_query_all_books(
     connection: State<DbConnection>,
 ) -> Vec<Book> {
     let db = connection.db.lock();
@@ -99,7 +99,7 @@ fn main() {
             connect,
             greet,
             sample_query,
-            tauri_query_all_books
+            be_query_all_books
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
