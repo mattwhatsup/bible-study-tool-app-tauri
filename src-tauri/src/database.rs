@@ -11,6 +11,8 @@ pub fn bible_connection() -> MyResult<Connection> {
 
 #[cfg(test)]
 mod tests {
+    use crate::database::bible::query_one_verse_by_id;
+
     use super::{
         bible::{
             query_all_bookgroups, query_book_group_set,
@@ -115,6 +117,19 @@ mod tests {
             26,
         )?;
         assert!(verse.is_none());
+        Ok(())
+    }
+
+    #[test]
+    fn test_query_verse_id2333() -> MyResult<()> {
+        let conn = bible_connection()?;
+        let verse = query_one_verse_by_id(
+            &conn,
+            bible::BibleVersion::cuvs,
+            2333,
+        )?;
+        assert!(verse.is_some());
+        println!("{:?}", verse.unwrap());
         Ok(())
     }
 

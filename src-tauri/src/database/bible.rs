@@ -251,6 +251,39 @@ pub fn query_one_verse(
         .map_or(None, |row| Some(row)))
 }
 
+pub fn query_one_verse_by_id(
+    conn: &Connection,
+    version: BibleVersion,
+    id: i32,
+) -> MyResult<Option<Verse>> {
+    let mut stmt = conn.prepare(
+        format!(
+            "
+            SELECT
+                id, book_id, chapter, verse, strong_text
+            FROM
+                bible_book_{version}
+            WHERE
+                id=:id
+        ",
+            version = version
+        )
+        .as_str(),
+    )?;
+
+    Ok(stmt
+        .query_row(&[(":id", &id.to_string())], |row| {
+            Ok(Verse {
+                id: row.get(0)?,
+                book_id: row.get(1)?,
+                chapter: row.get(2)?,
+                verse: row.get(3)?,
+                strong_text: row.get(4)?,
+            })
+        })
+        .map_or(None, |row| Some(row)))
+}
+
 #[derive(Debug, serde::Serialize, Display)]
 pub enum Lang {
     Hebrew,
