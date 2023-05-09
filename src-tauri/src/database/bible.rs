@@ -288,8 +288,6 @@ pub fn query_one_verse_by_id(
 pub enum Lang {
     Hebrew,
     Greek,
-    OT,
-    NT,
 }
 
 #[derive(Debug, serde::Serialize)]
@@ -334,11 +332,10 @@ pub fn query_strong_number(
         &[
             (
                 ":lang",
-                &(match lang {
-                    Lang::Hebrew => "H".to_owned(),
-                    Lang::Greek => "G".to_owned(),
-                    other => other.to_string(),
-                }),
+                match lang {
+                    Lang::Hebrew => "H",
+                    Lang::Greek => "G",
+                },
             ),
             (":number", &n.to_string()),
         ],
@@ -353,9 +350,7 @@ pub fn query_strong_number(
                     .as_str()
                 {
                     "H" => Lang::Hebrew,
-                    "G" => Lang::Greek,
-                    "OT" => Lang::OT,
-                    _ => Lang::NT,
+                    _ => Lang::Greek,
                 },
                 origin: row.get(5)?,
                 latin: row.get(6)?,
@@ -377,4 +372,34 @@ pub fn query_strong_number(
         Ok(row) => Some(row),
         _ => None,
     })
+}
+
+pub fn search_verses_contains_strong_number(
+    conn: &Connection,
+    lang: Lang,
+    n: i32,
+) -> MyResult<Vec<i32>> {
+    let mut stmt = conn.prepare(
+        "
+            SELECT id
+            FROM bible_book_strongnumber
+            WHERE strong_list LIKE :number
+        ",
+    )?;
+    let rows = stmt.query_map(
+        &[(
+            ":number",
+            &format!(
+                "%{lang}{n:04}%",
+                lang = match lang {
+                    Lang::Hebrew => "H",
+                    Lang::Greek => "G",
+                },
+                n = n
+            ),
+        )],
+        |row| row.get::<_, i32>(0),
+    )?;
+
+    Ok(rows.map(|row| row.unwrap()).collect())
 }
