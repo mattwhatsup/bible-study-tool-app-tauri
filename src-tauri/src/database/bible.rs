@@ -1,6 +1,7 @@
 use rusqlite::{Connection, Row};
 
 use crate::MyResult;
+use strum_macros::Display;
 
 #[derive(Debug, serde::Serialize)]
 pub enum OtOrNt {
@@ -144,6 +145,66 @@ pub fn query_book_group_set(
     let rows = stmt.query_map(
         &[(":bookgroup_id", &groupId.to_string())],
         |row| Ok(row.get::<_, i32>(0)?),
+    )?;
+    Ok(rows.map(|row| row.unwrap()).collect())
+}
+
+#[derive(Display, serde::Serialize)]
+#[allow(non_camel_case_types)]
+pub enum BibleVersion {
+    cuvs,
+    csbs,
+    hcsbs,
+    lebs,
+    lzzs,
+    whs,
+    wlcs,
+}
+
+#[derive(Debug, serde::Serialize)]
+pub struct Verse {
+    id: i32,
+    book_id: i32,
+    chapter: i32,
+    verse: i32,
+    strong_text: String,
+}
+
+pub fn query_chapter_verses(
+    conn: &Connection,
+    version: BibleVersion,
+    book_id: i32,
+    chapter: i32,
+) -> MyResult<Vec<Verse>> {
+    let mut stmt = conn.prepare(
+        format!(
+            "
+            SELECT
+                id, book_id, chapter, verse, strong_text
+            FROM
+                bible_book_{version}
+            WHERE
+                book_id=:book_id AND chapter=:chapter
+        ",
+            version = version
+        )
+        .as_str(),
+    )?;
+
+    let rows = stmt.query_map(
+        &[
+            (":book_id", &book_id.to_string()),
+            (":chapter", &chapter.to_string()),
+        ],
+        |row| {
+            Ok(Verse {
+                id: row.get(0)?,
+                book_id: row.get(1)?,
+                chapter: row.get(2)?,
+                verse: row.get(3)?,
+                strong_text: row.get(4)?,
+            })
+        },
     )?;
     Ok(rows.map(|row| row.unwrap()).collect())
 }

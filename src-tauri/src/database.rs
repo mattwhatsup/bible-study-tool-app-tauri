@@ -14,6 +14,7 @@ mod tests {
     use super::{
         bible::{
             query_all_bookgroups, query_book_group_set,
+            query_chapter_verses,
         },
         *,
     };
@@ -69,6 +70,20 @@ mod tests {
         let conn = bible_connection()?;
         let book_ids = query_book_group_set(&conn, 6)?;
         assert_eq!(book_ids, vec![142214, 143978]);
+        Ok(())
+    }
+
+    #[test]
+    fn test_query_all_matthew_chapter1_verses(
+    ) -> MyResult<()> {
+        let conn = bible_connection()?;
+        let verses = query_chapter_verses(
+            &conn,
+            bible::BibleVersion::csbs,
+            14006,
+            1,
+        )?;
+        assert_eq!(verses.len(), 25);
         Ok(())
     }
 }
