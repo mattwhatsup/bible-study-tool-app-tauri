@@ -14,7 +14,7 @@ mod tests {
     use super::{
         bible::{
             query_all_bookgroups, query_book_group_set,
-            query_chapter_verses,
+            query_chapter_verses, query_one_verse,
         },
         *,
     };
@@ -84,6 +84,21 @@ mod tests {
             1,
         )?;
         assert_eq!(verses.len(), 25);
+        Ok(())
+    }
+
+    #[test]
+    fn test_query_matthew_chapter1_verse1() -> MyResult<()>
+    {
+        let conn = bible_connection()?;
+        let verse = query_one_verse(
+            &conn,
+            bible::BibleVersion::cuvs,
+            14006,
+            1,
+            1,
+        )?;
+        assert_eq!(verse.strong_text, String::from("亚伯拉罕<WG11>的后裔<WG5207>，大卫<WG1138>的子孙<WG5207>〔后裔、子孙，原文都作儿子，下同〕，耶稣<WG2424>基督<WG5547>的家谱<WG976><WG1078>："));
         Ok(())
     }
 }

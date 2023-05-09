@@ -163,11 +163,11 @@ pub enum BibleVersion {
 
 #[derive(Debug, serde::Serialize)]
 pub struct Verse {
-    id: i32,
-    book_id: i32,
-    chapter: i32,
-    verse: i32,
-    strong_text: String,
+    pub id: i32,
+    pub book_id: i32,
+    pub chapter: i32,
+    pub verse: i32,
+    pub strong_text: String,
 }
 
 pub fn query_chapter_verses(
@@ -207,4 +207,44 @@ pub fn query_chapter_verses(
         },
     )?;
     Ok(rows.map(|row| row.unwrap()).collect())
+}
+
+pub fn query_one_verse(
+    conn: &Connection,
+    version: BibleVersion,
+    book_id: i32,
+    chapter: i32,
+    verse: i32,
+) -> MyResult<Verse> {
+    let mut stmt = conn.prepare(
+        format!(
+            "
+            SELECT
+                id, book_id, chapter, verse, strong_text
+            FROM
+                bible_book_{version}
+            WHERE
+                book_id=:book_id AND chapter=:chapter AND verse=:verse
+        ",
+            version = version
+        )
+        .as_str(),
+    )?;
+
+    Ok(stmt.query_row(
+        &[
+            (":book_id", &book_id.to_string()),
+            (":chapter", &chapter.to_string()),
+            (":verse", &verse.to_string()),
+        ],
+        |row| {
+            Ok(Verse {
+                id: row.get(0)?,
+                book_id: row.get(1)?,
+                chapter: row.get(2)?,
+                verse: row.get(3)?,
+                strong_text: row.get(4)?,
+            })
+        },
+    )?)
 }
