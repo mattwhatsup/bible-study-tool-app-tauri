@@ -15,6 +15,7 @@ mod tests {
         bible::{
             query_all_bookgroups, query_book_group_set,
             query_chapter_verses, query_one_verse,
+            query_strong_number,
         },
         *,
     };
@@ -98,7 +99,63 @@ mod tests {
             1,
             1,
         )?;
-        assert_eq!(verse.strong_text, String::from("亚伯拉罕<WG11>的后裔<WG5207>，大卫<WG1138>的子孙<WG5207>〔后裔、子孙，原文都作儿子，下同〕，耶稣<WG2424>基督<WG5547>的家谱<WG976><WG1078>："));
+        assert_eq!(verse.unwrap().strong_text, String::from("亚伯拉罕<WG11>的后裔<WG5207>，大卫<WG1138>的子孙<WG5207>〔后裔、子孙，原文都作儿子，下同〕，耶稣<WG2424>基督<WG5547>的家谱<WG976><WG1078>："));
+        Ok(())
+    }
+
+    #[test]
+    fn test_query_matthew_chapter1_verse26() -> MyResult<()>
+    {
+        let conn = bible_connection()?;
+        let verse = query_one_verse(
+            &conn,
+            bible::BibleVersion::cuvs,
+            14006,
+            1,
+            26,
+        )?;
+        assert!(verse.is_none());
+        Ok(())
+    }
+
+    #[test]
+    fn test_query_strong_number_greek_4335() -> MyResult<()>
+    {
+        let conn = bible_connection()?;
+        let strong_item = query_strong_number(
+            &conn,
+            bible::Lang::Greek,
+            4335,
+        )?;
+        assert!(strong_item.is_some());
+        println!("{:?}", strong_item);
+        Ok(())
+    }
+
+    #[test]
+    fn test_query_strong_number_not_exists() -> MyResult<()>
+    {
+        let conn = bible_connection()?;
+        let strong_item = query_strong_number(
+            &conn,
+            bible::Lang::Greek,
+            14335,
+        )?;
+        assert!(strong_item.is_none());
+        Ok(())
+    }
+
+    #[test]
+    fn test_query_strong_number_hebrew_7225() -> MyResult<()>
+    {
+        let conn = bible_connection()?;
+        let strong_item = query_strong_number(
+            &conn,
+            bible::Lang::Hebrew,
+            7225,
+        )?;
+        assert!(strong_item.is_some());
+        println!("{:?}", strong_item);
         Ok(())
     }
 }

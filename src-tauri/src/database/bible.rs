@@ -11,18 +11,18 @@ pub enum OtOrNt {
 
 #[derive(Debug, serde::Serialize)]
 pub struct Book {
-    id: i32,
-    name_cn: String,
-    name_en: String,
-    name_tr: String,
-    display_order: u16,
-    abbr_cn: String,
-    abbr_en: String,
-    abbr_tr: String,
-    chapter_count: u16,
-    pinyin: String,
-    pinyin_initial: String,
-    ot_or_nt: OtOrNt,
+    pub id: i32,
+    pub name_cn: String,
+    pub name_en: String,
+    pub name_tr: String,
+    pub display_order: u16,
+    pub abbr_cn: String,
+    pub abbr_en: String,
+    pub abbr_tr: String,
+    pub chapter_count: u16,
+    pub pinyin: String,
+    pub pinyin_initial: String,
+    pub ot_or_nt: OtOrNt,
 }
 
 fn book_from_row(row: &Row) -> MyResult<Book> {
@@ -91,15 +91,15 @@ pub fn query_book_by_name(
 
 #[derive(Debug)]
 pub struct BookGroup {
-    id: i32,
-    ot_or_nt: OtOrNt,
-    name_en: String,
-    name_cn: String,
-    name_tr: String,
-    seq: i32,
-    abbr_cn: String,
-    abbr_en: String,
-    abbr_tr: String,
+    pub id: i32,
+    pub ot_or_nt: OtOrNt,
+    pub name_en: String,
+    pub name_cn: String,
+    pub name_tr: String,
+    pub seq: i32,
+    pub abbr_cn: String,
+    pub abbr_en: String,
+    pub abbr_tr: String,
 }
 
 pub fn query_all_bookgroups(
@@ -215,7 +215,7 @@ pub fn query_one_verse(
     book_id: i32,
     chapter: i32,
     verse: i32,
-) -> MyResult<Verse> {
+) -> MyResult<Option<Verse>> {
     let mut stmt = conn.prepare(
         format!(
             "
@@ -231,20 +231,117 @@ pub fn query_one_verse(
         .as_str(),
     )?;
 
-    Ok(stmt.query_row(
+    Ok(stmt
+        .query_row(
+            &[
+                (":book_id", &book_id.to_string()),
+                (":chapter", &chapter.to_string()),
+                (":verse", &verse.to_string()),
+            ],
+            |row| {
+                Ok(Verse {
+                    id: row.get(0)?,
+                    book_id: row.get(1)?,
+                    chapter: row.get(2)?,
+                    verse: row.get(3)?,
+                    strong_text: row.get(4)?,
+                })
+            },
+        )
+        .map_or(None, |row| Some(row)))
+}
+
+#[derive(Debug, serde::Serialize, Display)]
+pub enum Lang {
+    Hebrew,
+    Greek,
+    OT,
+    NT,
+}
+
+#[derive(Debug, serde::Serialize)]
+pub struct StrongDictItem {
+    id: i32,
+    strong_number: String,
+    strong_number2: String,
+    i_strong_number: i32,
+    lang: Lang,
+    origin: String,
+    latin: String,
+    def_en: String,
+    def_tr: String,
+    def_cn: String,
+    des_en: String,
+    des_tr: String,
+    des_cn: String,
+    class_en: String,
+    class_tr: String,
+    class_cn: String,
+    exclude: i32,
+}
+
+pub fn query_strong_number(
+    conn: &Connection,
+    lang: Lang,
+    n: i32,
+) -> MyResult<Option<StrongDictItem>> {
+    let mut stmt = conn.prepare(
+        "
+            SELECT
+                id, strong_number, strong_number2, i_strong_number, heb_grk,
+                origin, latin, def_en, def_tr, def_cn, des_en, des_tr, des_cn,
+                class_en, class_tr, class_cn, exclude
+            FROM bible_strongdict
+            WHERE
+                heb_grk=:lang AND i_strong_number=:number
+        "
+    )?;
+
+    let row = stmt.query_row(
         &[
-            (":book_id", &book_id.to_string()),
-            (":chapter", &chapter.to_string()),
-            (":verse", &verse.to_string()),
+            (
+                ":lang",
+                &(match lang {
+                    Lang::Hebrew => "H".to_owned(),
+                    Lang::Greek => "G".to_owned(),
+                    other => other.to_string(),
+                }),
+            ),
+            (":number", &n.to_string()),
         ],
         |row| {
-            Ok(Verse {
+            Ok(StrongDictItem {
                 id: row.get(0)?,
-                book_id: row.get(1)?,
-                chapter: row.get(2)?,
-                verse: row.get(3)?,
-                strong_text: row.get(4)?,
+                strong_number: row.get(1)?,
+                strong_number2: row.get(2)?,
+                i_strong_number: row.get(3)?,
+                lang: match row
+                    .get::<_, String>(4)?
+                    .as_str()
+                {
+                    "H" => Lang::Hebrew,
+                    "G" => Lang::Greek,
+                    "OT" => Lang::OT,
+                    _ => Lang::NT,
+                },
+                origin: row.get(5)?,
+                latin: row.get(6)?,
+                def_en: row.get(7)?,
+                def_tr: row.get(8)?,
+                def_cn: row.get(9)?,
+                des_en: row.get(10)?,
+                des_tr: row.get(11)?,
+                des_cn: row.get(12)?,
+                class_en: row.get(13)?,
+                class_tr: row.get(14)?,
+                class_cn: row.get(15)?,
+                exclude: row.get(16)?,
             })
         },
-    )?)
+    );
+
+    Ok(match row {
+        Ok(row) => Some(row),
+        _ => None,
+    })
 }
