@@ -1,11 +1,23 @@
 use crate::MyResult;
 use rusqlite::Connection;
+// use rusqlite::LoadExtensionGuard;
+
+// extern crate rusqlite;
+// extern crate sqlite_regex_replace_ext;
 
 pub mod bible;
 
 pub fn bible_connection() -> MyResult<Connection> {
     let conn =
         Connection::open("./resources/bible-data.db")?;
+    // unsafe {
+    //     let _guard = LoadExtensionGuard::new(&conn)?;
+    //     conn.load_extension(
+    //         "./resources/icu_replace.so",
+    //         None,
+    //     )?;
+    // }
+
     Ok(conn)
 }
 
