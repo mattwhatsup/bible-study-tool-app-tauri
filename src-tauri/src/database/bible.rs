@@ -374,7 +374,7 @@ pub fn query_strong_number(
     })
 }
 
-pub fn search_verses_contains_strong_number(
+pub fn search_verses_contain_strong_number(
     conn: &Connection,
     lang: Lang,
     n: i32,

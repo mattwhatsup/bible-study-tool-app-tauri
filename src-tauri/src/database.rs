@@ -18,7 +18,7 @@ mod tests {
             query_all_bookgroups, query_book_group_set,
             query_chapter_verses, query_one_verse,
             query_strong_number,
-            search_verses_contains_strong_number,
+            search_verses_contain_strong_number,
         },
         *,
     };
@@ -176,10 +176,10 @@ mod tests {
     }
 
     #[test]
-    fn test_search_verses_contains_strong_number_hebrew_7225(
+    fn test_search_verses_contain_strong_number_hebrew_7225(
     ) -> MyResult<()> {
         let conn = bible_connection()?;
-        let verses = search_verses_contains_strong_number(
+        let verses = search_verses_contain_strong_number(
             &conn,
             bible::Lang::Hebrew,
             7225,
@@ -189,10 +189,10 @@ mod tests {
     }
 
     #[test]
-    fn test_search_verses_contains_strong_number_hebrew_17225(
+    fn test_search_verses_contain_strong_number_hebrew_17225(
     ) -> MyResult<()> {
         let conn = bible_connection()?;
-        let verses = search_verses_contains_strong_number(
+        let verses = search_verses_contain_strong_number(
             &conn,
             bible::Lang::Hebrew,
             17225,
