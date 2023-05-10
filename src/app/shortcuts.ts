@@ -6,4 +6,6 @@ register('CommandOrControl+Shift+C', () => {
   store.dispatch({
     type: 'counter/increment',
   })
+}).catch((e) => {
+  // console.log(e)
 })
