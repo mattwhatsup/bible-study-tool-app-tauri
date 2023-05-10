@@ -13,40 +13,45 @@ import { FunctionComponent } from 'react'
 // import VersionDropDown from './components-ui/VersionDropDown'
 import { Counter } from './features/counter/Counter'
 import { BibleNameType, BibleVersion, Lang, bibleApi } from './app/api'
+import { Button } from '@material-tailwind/react'
 
 interface AppProps {}
 
 const App: FunctionComponent<AppProps> = () => {
   return (
     <div className="tw-w-screen tw-h-screen">
-      <button
+      <Button
+        size="sm"
         onClick={async () => {
           await invoke('connect')
           console.log('connected')
         }}
       >
         connect
-      </button>
+      </Button>
 
-      <button
+      <Button
+        size="sm"
         onClick={async () => {
           const names = await invoke('sample_query', { someParam: 123 })
           console.log(names)
         }}
       >
         query
-      </button>
+      </Button>
 
-      <button
+      <Button
+        size="sm"
         onClick={async () => {
           const books = await bibleApi.queryAllBooks()
           console.log(books)
         }}
       >
         all books
-      </button>
+      </Button>
 
-      <button
+      <Button
+        size="sm"
         onClick={async () => {
           const book = await bibleApi.queryBookByName(
             '马太福音',
@@ -56,9 +61,10 @@ const App: FunctionComponent<AppProps> = () => {
         }}
       >
         获取马太福音
-      </button>
+      </Button>
 
-      <button
+      <Button
+        size="sm"
         onClick={async () => {
           try {
             const book = await bibleApi.queryBookByName(
@@ -71,9 +77,10 @@ const App: FunctionComponent<AppProps> = () => {
         }}
       >
         获取马太福
-      </button>
+      </Button>
 
-      <button
+      <Button
+        size="sm"
         onClick={async () => {
           const verses = await bibleApi.queryChapterVerses(
             BibleVersion.cuvs,
@@ -84,36 +91,40 @@ const App: FunctionComponent<AppProps> = () => {
         }}
       >
         获取马太福音1章
-      </button>
+      </Button>
 
-      <button
+      <Button
+        size="sm"
         onClick={async () => {
           const sn = await bibleApi.queryStrongNumber(Lang.Greek, 4335)
           console.log(sn)
         }}
       >
         查询G4335
-      </button>
+      </Button>
 
-      <button
+      <Button
+        size="sm"
         onClick={async () => {
           const sn = await bibleApi.queryStrongNumber(Lang.Hebrew, 335)
           console.log(sn)
         }}
       >
         查询H335
-      </button>
+      </Button>
 
-      <button
+      <Button
+        size="sm"
         onClick={async () => {
           const sn = await bibleApi.queryStrongNumber(Lang.Hebrew, 14335)
           console.log(sn)
         }}
       >
         查询H14335
-      </button>
+      </Button>
 
-      <button
+      <Button
+        size="sm"
         onClick={async () => {
           const sn = await bibleApi.searchVersesContainStrongNumber(
             Lang.Hebrew,
@@ -123,7 +134,7 @@ const App: FunctionComponent<AppProps> = () => {
         }}
       >
         搜索H335出现位置
-      </button>
+      </Button>
 
       <Counter />
       {/* <BibleSelector /> */}
