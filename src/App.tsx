@@ -39,7 +39,7 @@ const App: FunctionComponent<AppProps> = () => {
 
       <button
         onClick={async () => {
-          const books = await invoke('api_query_all_books')
+          const books = await bibleApi.queryAllBooks()
           console.log(books)
         }}
       >
