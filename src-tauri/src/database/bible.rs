@@ -61,6 +61,7 @@ pub fn query_all_books(
     Ok(books)
 }
 
+#[derive(Debug, EnumString)]
 pub enum BookNameType {
     English,
     SimplifiedChinese,

@@ -36,11 +36,35 @@ const App: FunctionComponent<AppProps> = () => {
 
       <button
         onClick={async () => {
-          const books = await invoke('be_query_all_books')
+          const books = await invoke('api_query_all_books')
           console.log(books)
         }}
       >
         all books
+      </button>
+
+      <button
+        onClick={async () => {
+          const book = await invoke('api_query_book_by_name', {
+            name: '马太福音',
+            nameType: 'cn',
+          })
+          console.log(book)
+        }}
+      >
+        获取马太福音
+      </button>
+
+      <button
+        onClick={async () => {
+          const book = await invoke('api_query_book_by_name', {
+            name: '马太福',
+            nameType: 'cn',
+          })
+          console.log(book)
+        }}
+      >
+        获取马太福
       </button>
 
       <Counter />

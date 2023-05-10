@@ -1,3 +1,8 @@
+// 引入strum和strum_macros
+extern crate strum;
+#[macro_use]
+extern crate strum_macros;
+
 use rusqlite::{Connection, Result};
 use std::collections::HashMap;
 use std::error::Error;

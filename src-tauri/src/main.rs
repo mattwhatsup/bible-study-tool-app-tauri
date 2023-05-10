@@ -17,7 +17,7 @@ use std::{collections::HashMap, sync::Mutex};
 use tauri::State;
 
 use bible_study_tool_app::database::bible::{
-    query_all_books, Book,
+    query_all_books, query_book_by_name, Book, BookNameType,
 };
 
 struct DbConnection {
@@ -66,12 +66,29 @@ fn greet(name: &str) -> String {
 }
 
 #[tauri::command]
-fn be_query_all_books(
+fn api_query_all_books(
     connection: State<DbConnection>,
 ) -> Vec<Book> {
     let db = connection.db.lock();
     let conn = db.as_ref().unwrap().as_ref().unwrap();
     query_all_books(conn).unwrap()
+}
+
+#[tauri::command]
+fn api_query_book_by_name(
+    connection: State<DbConnection>,
+    name: String,
+    name_type: String,
+) -> Option<Book> {
+    let db = connection.db.lock();
+    let conn = db.as_ref().unwrap().as_ref().unwrap();
+    let name_type = match name_type.as_str() {
+        "cn" => BookNameType::SimplifiedChinese,
+        "en" => BookNameType::English,
+        "tr" => BookNameType::TraditionalChinese,
+        _ => panic!("unknown book lang type"),
+    };
+    query_book_by_name(conn, name, name_type).unwrap()
 }
 
 fn main() {
@@ -99,7 +116,8 @@ fn main() {
             connect,
             greet,
             sample_query,
-            be_query_all_books
+            api_query_all_books,
+            api_query_book_by_name
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
