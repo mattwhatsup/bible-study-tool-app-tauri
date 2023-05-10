@@ -1,3 +1,4 @@
+/* @config './tailwind.config.cjs' */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -68,7 +69,7 @@ body {
 } */
 
 body {
-  @apply tw-bg-gray-100;
+  /* @apply tw-bg-gray-100; */
 }
 
 .pop::before {

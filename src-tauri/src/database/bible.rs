@@ -90,7 +90,7 @@ pub fn query_book_by_name(
     })
 }
 
-#[derive(Debug)]
+#[derive(Debug, serde::Serialize)]
 pub struct BookGroup {
     pub id: i32,
     pub ot_or_nt: OtOrNt,
@@ -150,7 +150,7 @@ pub fn query_book_group_set(
     Ok(rows.map(|row| row.unwrap()).collect())
 }
 
-#[derive(Display, serde::Serialize)]
+#[derive(Display, serde::Serialize, serde::Deserialize)]
 #[allow(non_camel_case_types)]
 pub enum BibleVersion {
     cuvs,
@@ -285,7 +285,9 @@ pub fn query_one_verse_by_id(
         .map_or(None, |row| Some(row)))
 }
 
-#[derive(Debug, serde::Serialize, Display)]
+#[derive(
+    Debug, serde::Serialize, Display, serde::Deserialize,
+)]
 pub enum Lang {
     Hebrew,
     Greek,
