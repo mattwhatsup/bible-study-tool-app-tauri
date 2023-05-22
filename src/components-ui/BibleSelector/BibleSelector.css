@@ -1,23 +1,23 @@
 .book-list-header > * + * {
-  @apply tw-ml-1;
+  @apply ml-1;
 }
 .book-list > li {
-  @apply tw-text-sm tw-leading-6 tw-border-b tw-border-gray-100 tw-pt-1 tw-pb-1 tw-indent-2;
+  @apply text-sm leading-6 border-b border-gray-100 pt-1 pb-1 indent-2;
 }
 .book-list > li.active {
-  @apply tw-bg-gray-200;
+  @apply bg-gray-200;
 }
 .book-grid {
-  @apply tw-grid tw-grid-cols-4;
+  @apply grid grid-cols-4;
 }
 .book-grid > li {
-  @apply tw-border tw-text-center tw-m-0.5 tw-leading-10 tw-rounded-sm;
+  @apply border text-center m-0.5 leading-10 rounded-sm;
 }
 .book-grid > li.active {
-  @apply tw-bg-gray-200;
+  @apply bg-gray-200;
 }
 .list-height {
-  @apply tw-h-[23rem];
+  @apply h-[23rem];
 }
 
 /* .list-content::-webkit-scrollbar {

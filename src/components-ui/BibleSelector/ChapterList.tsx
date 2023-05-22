@@ -5,11 +5,11 @@ interface ChapterListProps extends HTMLAttributes<HTMLDivElement> {}
 const ChapterList: FunctionComponent<ChapterListProps> = ({ className }) => {
   return (
     <div className={className}>
-      <div className="tw-flex tw-items-center book-list-header tw-leading-[31px]">
-        <span className=" tw-font-bold">章</span>
+      <div className="flex items-center book-list-header leading-[31px]">
+        <span className=" font-bold">章</span>
       </div>
-      <div className="list-height tw-overflow-y-auto list-content">
-        <ul className="book-grid tw-mt-2 tw-mr-2">
+      <div className="list-height overflow-y-auto list-content">
+        <ul className="book-grid mt-2 mr-2">
           <li>
             <span>1</span>
           </li>

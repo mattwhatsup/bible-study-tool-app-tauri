@@ -5,29 +5,27 @@ interface BookListProps extends HTMLAttributes<HTMLDivElement> {}
 const BookList: FunctionComponent<BookListProps> = ({ className }) => {
   return (
     <div className={className}>
-      <div className="tw-flex tw-items-center book-list-header tw-leading-5">
-        <span className=" tw-font-bold">书</span>
-        <div className=" tw-flex-1 tw-relative">
-          <i className="fa fa-search tw-absolute tw-left-3 tw-top-2 tw-text-gray-400"></i>
+      <div className="flex items-center book-list-header leading-[31px]">
+        <span className=" font-bold">书</span>
+        <div className=" flex-1 relative">
+          <i className="fa fa-search absolute left-3 top-0 text-gray-400 text-sm"></i>
           <input
             type="text"
-            className="form-control form-control-sm tw-pl-8 tw-rounded-2xl"
+            className="form-control form-control-sm pl-8 rounded-2xl text-sm"
             placeholder="过滤..."
           />
         </div>
-        <label className=" tw-swap tw-swap-rotate tw-ml-2">
+        <label className=" swap swap-rotate ml-2">
           <input type="checkbox" />
-          <i className="fa fa-th tw-swap-off" aria-hidden="true" />
+          <i className="fa fa-th swap-off" aria-hidden="true" />
 
-          <i className="fa fa-bars tw-swap-on" aria-hidden="true" />
+          <i className="fa fa-bars swap-on" aria-hidden="true" />
         </label>
       </div>
-      <div className="list-height tw-overflow-y-auto list-content tw-pr-4">
+      <div className="list-height overflow-y-auto list-content pr-4">
         <div>
-          <div className=" tw-text-lg tw-mt-2 tw-sticky tw-top-0 tw-bg-white">
-            旧约
-          </div>
-          <ul className="book-grid tw-mt-2">
+          <div className=" text-lg mt-2 sticky top-0 bg-white">旧约</div>
+          <ul className="book-grid mt-2">
             <li>
               <span>创</span>
             </li>
@@ -149,10 +147,8 @@ const BookList: FunctionComponent<BookListProps> = ({ className }) => {
         </div>
 
         <div>
-          <div className=" tw-text-lg tw-mt-2 tw-sticky tw-top-0 tw-bg-white">
-            旧约
-          </div>
-          <ul className="book-list tw-mt-2">
+          <div className=" text-lg mt-2 sticky top-0 bg-white">旧约</div>
+          <ul className="book-list mt-2">
             <li className="active">
               <span>创世记</span>
             </li>
@@ -273,10 +269,8 @@ const BookList: FunctionComponent<BookListProps> = ({ className }) => {
           </ul>
         </div>
         <div>
-          <div className=" tw-text-lg tw-mt-2 tw-sticky tw-top-0 tw-bg-white">
-            新约
-          </div>
-          <ul className="book-list tw-mt-2">
+          <div className=" text-lg mt-2 sticky top-0 bg-white">新约</div>
+          <ul className="book-list mt-2">
             <li>
               <span>马太福音</span>
             </li>

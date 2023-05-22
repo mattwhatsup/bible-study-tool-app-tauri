@@ -8,13 +8,13 @@ interface BibleSelectorProps {}
 
 const BibleSelector: FunctionComponent<BibleSelectorProps> = () => {
   return (
-    <>
+    <div className=" flex items-center">
       <BookDropDown />
-      <i className=" tw-text-gray-400 tw-mx-1 fa-solid fa-chevron-right"></i>
+      <i className=" text-gray-400 mx-1 fa-solid fa-chevron-right"></i>
       <ChapterDropDown />
-      <i className=" tw-text-gray-400 tw-mx-1 fa-solid fa-chevron-right"></i>
+      <i className=" text-gray-400 mx-1 fa-solid fa-chevron-right"></i>
       <VerseDropDown />
-    </>
+    </div>
   )
 }
 

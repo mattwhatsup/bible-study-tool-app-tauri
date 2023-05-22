@@ -1,18 +1,19 @@
 import { FunctionComponent } from 'react'
 import VersePopupSelector from './VersePopupSelector'
+import BibleDropDown, { SelectType } from './BibleDropDown'
 
 interface VerseDropDownProps {}
 
 const VerseDropDown: FunctionComponent<VerseDropDownProps> = () => {
   return (
-    <div className="tw-dropdown tw-dropdown-bottom tw-dropdown-start">
-      <label tabIndex={0} className="tw-btn tw-m-1 tw-btn-sm tw-btn-primary">
-        <span className="tw-mr-2">选择节</span>
-        <i className="fa-solid fa-chevron-down"></i>
-      </label>
-
-      <VersePopupSelector className="dropdown-menu tw-dropdown-content tw-block !tw-top-[120%] tw-shadow-lg tw-border-gray-200" />
-    </div>
+    <BibleDropDown
+      label={'选择节'}
+      selectType={SelectType.Verse}
+      selected={undefined}
+      onSelect={(value) => {}}
+    >
+      <VersePopupSelector className="dropdown-menu dropdown-content block !top-[120%] shadow-lg border-gray-200" />
+    </BibleDropDown>
   )
 }
 
