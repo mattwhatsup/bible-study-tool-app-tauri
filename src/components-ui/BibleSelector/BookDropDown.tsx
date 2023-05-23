@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react'
-import { Popover, Transition } from '@headlessui/react'
 import BookPopupSelector from './BookPopupSelector'
 import BibleDropDown, { SelectType } from './BibleDropDown'
 

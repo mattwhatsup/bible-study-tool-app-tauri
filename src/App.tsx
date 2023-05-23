@@ -4,7 +4,7 @@ import Sidebar from './components-ui/Sidebar'
 import { NavLink, Route, Routes } from 'react-router-dom'
 import { Switch } from '@material-tailwind/react'
 import DropDownButton from './components-ui/DropDownButton'
-import BibleSelector from './components-ui/BibleSelector/BibleSelector'
+import BibleSelector from './components-ui/BibleSelector'
 
 interface AppProps {}
 
