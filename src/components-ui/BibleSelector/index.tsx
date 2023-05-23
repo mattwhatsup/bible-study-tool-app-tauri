@@ -1,12 +1,20 @@
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useContext } from 'react'
 import BookDropDown from './BookDropDown'
 import ChapterDropDown from './ChapterDropDown'
 import VerseDropDown from './VerseDropDown'
 import './BibleSelector.css'
+import BibleSelectorContextProvider, {
+  BibleSelectorContext,
+} from './BibleSelectorContextProvider'
+import { OtOrNt } from '../../app/api'
 
-interface BibleSelectorProps {}
+interface BibleSelectorProps {
+  onChange?: Function
+}
 
 const BibleSelector: FunctionComponent<BibleSelectorProps> = () => {
+  const allBooks = useContext(BibleSelectorContext)
+
   return (
     <div className=" flex items-center">
       <BookDropDown />
@@ -18,4 +26,10 @@ const BibleSelector: FunctionComponent<BibleSelectorProps> = () => {
   )
 }
 
-export default BibleSelector
+const Wrapper: FunctionComponent<BibleSelectorProps> = (props) => (
+  <BibleSelectorContextProvider {...props}>
+    <BibleSelector />
+  </BibleSelectorContextProvider>
+)
+
+export default Wrapper
