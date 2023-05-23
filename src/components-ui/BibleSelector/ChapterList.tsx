@@ -9,7 +9,7 @@ const ChapterList: FunctionComponent<ChapterListProps> = ({ className }) => {
         <span className=" font-bold">章</span>
       </div>
       <div className="list-height overflow-y-auto list-content">
-        <ul className="book-grid mt-2 mr-2">
+        <ul className="book-grid mt-2 ">
           <li>
             <span>1</span>
           </li>

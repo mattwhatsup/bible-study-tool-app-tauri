@@ -12,13 +12,22 @@ interface AppProps {}
 const App: FunctionComponent<AppProps> = () => {
   return (
     <div className="w-screen h-screen bg-green-400">
-      <BibleSelector />
+      <BibleSelector selected={{ book: 811335, chapter: 1 }} />
       <button
         onClick={async () =>
           console.log(JSON.stringify(await bibleApi.queryAllBooks()))
         }
       >
         all book
+      </button>{' '}
+      <button
+        onClick={async () =>
+          console.log(
+            JSON.stringify(await bibleApi.queryAllChapterVersesCount()),
+          )
+        }
+      >
+        all chapter verses count
       </button>
     </div>
   )

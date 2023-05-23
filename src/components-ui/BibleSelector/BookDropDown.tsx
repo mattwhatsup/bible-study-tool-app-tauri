@@ -6,14 +6,7 @@ interface BookDropDownProps {}
 
 const BookDropDown: FunctionComponent<BookDropDownProps> = () => {
   return (
-    <BibleDropDown
-      label={'选择书'}
-      selectType={SelectType.Book}
-      selected={undefined}
-      onSelect={(value) => {
-        console.log(value)
-      }}
-    >
+    <BibleDropDown label={'<选择书>'} selectType={SelectType.Book}>
       <BookPopupSelector className="shadow-lg border-gray-200" />
     </BibleDropDown>
   )

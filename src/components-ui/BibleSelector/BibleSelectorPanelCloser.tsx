@@ -8,7 +8,10 @@ const BibleSelectorPanelCloser: FunctionComponent<
   BibleSelectorPanelCloserProps
 > = ({ onClose }) => {
   return (
-    <button className=" absolute right-2 top-1" onClick={() => onClose?.()}>
+    <button
+      className=" absolute right-2 top-1 text-gray-400 text-xs"
+      onClick={() => onClose?.()}
+    >
       <i className="fa-solid fa-rectangle-xmark"></i>
     </button>
   )

@@ -1,34 +1,48 @@
-import { FunctionComponent, useContext } from 'react'
+import { FunctionComponent, createContext, useContext } from 'react'
 import BookDropDown from './BookDropDown'
 import ChapterDropDown from './ChapterDropDown'
 import VerseDropDown from './VerseDropDown'
 import './BibleSelector.css'
-import BibleSelectorContextProvider, {
-  BibleSelectorContext,
-} from './BibleSelectorContextProvider'
-import { OtOrNt } from '../../app/api'
+import BibleSelectorContextProvider from './BibleSelectorContextProvider'
+import { SelectValue } from './BibleDropDown'
 
+export const SelectedValueContext = createContext<
+  | {
+      selected?: SelectValue
+      setSelected: (newSelected: SelectValue) => void
+    }
+  | undefined
+>(undefined)
 interface BibleSelectorProps {
   onChange?: Function
+  selected?: SelectValue
 }
 
-const BibleSelector: FunctionComponent<BibleSelectorProps> = () => {
-  const allBooks = useContext(BibleSelectorContext)
-
+const BibleSelector: FunctionComponent<BibleSelectorProps> = ({
+  selected,
+  onChange,
+}) => {
   return (
-    <div className=" flex items-center">
-      <BookDropDown />
-      <i className=" text-gray-400 mx-1 fa-solid fa-chevron-right"></i>
-      <ChapterDropDown />
-      <i className=" text-gray-400 mx-1 fa-solid fa-chevron-right"></i>
-      <VerseDropDown />
-    </div>
+    <SelectedValueContext.Provider
+      value={{
+        selected,
+        setSelected: (newSelected) => onChange?.(newSelected),
+      }}
+    >
+      <div className=" flex items-center">
+        <BookDropDown />
+        <i className=" text-gray-400 mx-1 fa-solid fa-chevron-right"></i>
+        <ChapterDropDown />
+        <i className=" text-gray-400 mx-1 fa-solid fa-chevron-right"></i>
+        <VerseDropDown />
+      </div>
+    </SelectedValueContext.Provider>
   )
 }
 
 const Wrapper: FunctionComponent<BibleSelectorProps> = (props) => (
-  <BibleSelectorContextProvider {...props}>
-    <BibleSelector />
+  <BibleSelectorContextProvider>
+    <BibleSelector {...props} />
   </BibleSelectorContextProvider>
 )
 

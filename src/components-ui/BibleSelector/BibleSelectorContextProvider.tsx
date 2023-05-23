@@ -1,8 +1,12 @@
 import { FunctionComponent, ReactNode, createContext } from 'react'
 import allBooks from './all-books.json'
-import { DataBook } from '../../app/api'
+import allChapterVersesCount from './all-chapter-verses-count.json'
+import { ChapterVersesCount, DataBook } from '../../app/api'
 
-export const BibleSelectorContext = createContext<Array<DataBook>>([])
+export const BibleSelectorContext = createContext<{
+  books: Array<DataBook>
+  chapterVersesCount: Array<ChapterVersesCount>
+} | null>(null)
 
 interface BibleSelectorContextProviderProps {
   children: ReactNode
@@ -12,7 +16,12 @@ const BibleSelectorContextProvider: FunctionComponent<
   BibleSelectorContextProviderProps
 > = ({ children }) => {
   return (
-    <BibleSelectorContext.Provider value={allBooks as Array<DataBook>}>
+    <BibleSelectorContext.Provider
+      value={{
+        books: allBooks as Array<DataBook>,
+        chapterVersesCount: allChapterVersesCount as Array<ChapterVersesCount>,
+      }}
+    >
       {children}
     </BibleSelectorContext.Provider>
   )

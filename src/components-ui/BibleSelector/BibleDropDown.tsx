@@ -14,15 +14,13 @@ export enum SelectType {
 }
 
 export type SelectValue = {
-  book?: string
+  book?: number
   chapter?: number
   verse?: number
 }
 
 export interface BibleSelectorProps {
   selectType: SelectType
-  selected?: SelectValue
-  onSelect: (value: SelectValue) => void
   onClose?: Function
 }
 
@@ -48,7 +46,7 @@ const BibleDropDown: FunctionComponent<
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-95 opacity-0"
       >
-        <Popover.Panel>
+        <Popover.Panel className={' focus:outline-none'}>
           {({ close }) => {
             const panel = cloneElement(children, {
               ...selectorProps,

@@ -27,9 +27,10 @@ mod tests {
 
     use super::{
         bible::{
-            query_all_bookgroups, query_book_group_set,
-            query_chapter_verses, query_one_verse,
-            query_strong_number,
+            query_all_bookgroups,
+            query_all_chapter_verses_count,
+            query_book_group_set, query_chapter_verses,
+            query_one_verse, query_strong_number,
             search_verses_contain_strong_number,
         },
         *,
@@ -44,6 +45,7 @@ mod tests {
     fn test_query_all_books() -> MyResult<()> {
         let conn = bible_connection()?;
         let books = bible::query_all_books(&conn)?;
+        println!("{:?}", books);
         assert_eq!(books.len(), 66);
         Ok(())
     }
@@ -210,6 +212,15 @@ mod tests {
             17225,
         )?;
         assert_eq!(verses.len(), 0);
+        Ok(())
+    }
+
+    #[test]
+    fn test_query_all_chapter_verses_count() -> MyResult<()>
+    {
+        let conn = bible_connection()?;
+        let rows = query_all_chapter_verses_count(&conn)?;
+        assert!(rows.len() > 0);
         Ok(())
     }
 }
