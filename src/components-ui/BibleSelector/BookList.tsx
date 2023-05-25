@@ -2,7 +2,6 @@ import {
   Fragment,
   FunctionComponent,
   HTMLAttributes,
-  MouseEvent,
   useContext,
   useEffect,
   useRef,
@@ -12,6 +11,7 @@ import { BibleSelectorContext } from './BibleSelectorContextProvider'
 import { OtOrNt } from '../../app/api'
 import { SelectedValueContext } from '.'
 import { book_filter } from '../../utils/book-filter'
+import BibleSelectorItem from './BibleSelectorItem'
 
 enum ListStyle {
   grid = 'grid',
@@ -31,20 +31,6 @@ function readListStyleFromLocalStorage() {
 
 function writeListStyleToLocalStorage(v: string) {
   localStorage.setItem('BibleSelectorBookListStyle', v)
-}
-
-interface ItemProps {
-  label: string
-  active: boolean
-  onClick: (event: MouseEvent<HTMLElement>) => void
-}
-
-const Item: FunctionComponent<ItemProps> = ({ label, active, onClick }) => {
-  return (
-    <li className={active ? 'active' : ''} onClick={onClick}>
-      <span>{label}</span>
-    </li>
-  )
 }
 
 interface ListViewProps {
@@ -80,7 +66,7 @@ const ListView: FunctionComponent<ListViewProps> = ({ style, filterText }) => {
                     </div>
                     <ul className={`book-${style} mt-2`}>
                       {books.map((book) => (
-                        <Item
+                        <BibleSelectorItem
                           active={selected?.book === book.id}
                           key={book.id}
                           label={

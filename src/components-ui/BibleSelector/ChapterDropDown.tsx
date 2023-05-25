@@ -6,12 +6,7 @@ interface ChapterDropDownProps {}
 
 const ChapterDropDown: FunctionComponent<ChapterDropDownProps> = () => {
   return (
-    <BibleDropDown
-      label={'选择章'}
-      selectType={SelectType.Chapter}
-      selected={undefined}
-      onSelect={(value) => {}}
-    >
+    <BibleDropDown label={'选择章'} selectType={SelectType.Chapter}>
       <ChapterPopupSelector className="dropdown-menu dropdown-content block !top-[120%] shadow-lg border-gray-200" />
     </BibleDropDown>
   )

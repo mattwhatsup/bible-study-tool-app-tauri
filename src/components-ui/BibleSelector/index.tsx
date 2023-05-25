@@ -26,7 +26,16 @@ const BibleSelector: FunctionComponent<BibleSelectorProps> = ({
     <SelectedValueContext.Provider
       value={{
         selected,
-        setSelected: (newSelected) => onChange?.(newSelected),
+        setSelected: (newSelected) => {
+          if (selected?.book !== newSelected.book) {
+            newSelected.chapter = undefined
+            newSelected.verse = undefined
+          }
+          if (selected?.chapter !== newSelected.chapter) {
+            newSelected.verse = undefined
+          }
+          onChange?.(newSelected)
+        },
       }}
     >
       <div className=" flex items-center">
