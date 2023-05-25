@@ -3,6 +3,8 @@ import {
   FunctionComponent,
   HTMLAttributes,
   useContext,
+  useEffect,
+  useRef,
   useState,
 } from 'react'
 import { BibleSelectorContext } from './BibleSelectorContextProvider'
@@ -80,7 +82,17 @@ const ListView: FunctionComponent<ListViewProps> = ({ style }) => {
 }
 
 const BookList: FunctionComponent<BookListProps> = ({ className }) => {
+  const listDiv = useRef<HTMLDivElement>(null)
   const [listStyle, setListStyle] = useState(readListStyleFromLocalStorage())
+
+  useEffect(() => {
+    // 重制滚动条
+    if (listDiv.current) {
+      listDiv.current.querySelector('li.active')?.scrollIntoView()
+      listDiv.current.scrollTop -= 40
+    }
+  }, [listStyle])
+
   return (
     <div className={className}>
       <div className="flex items-center book-list-header leading-[31px]">
@@ -108,7 +120,7 @@ const BookList: FunctionComponent<BookListProps> = ({ className }) => {
           <i className="fa fa-bars swap-on" aria-hidden="true" />
         </label>
       </div>
-      <div className="list-height overflow-y-auto list-content ">
+      <div className="list-height overflow-y-auto list-content " ref={listDiv}>
         <ListView style={listStyle} />
       </div>
     </div>
