@@ -10,6 +10,7 @@ import {
 import { BibleSelectorContext } from './BibleSelectorContextProvider'
 import { OtOrNt } from '../../app/api'
 import { SelectedValueContext } from '.'
+import { book_filter } from '../../utils/book-filter'
 
 enum ListStyle {
   grid = 'grid',
@@ -46,10 +47,11 @@ const Item: FunctionComponent<ItemProps> = ({ label, active }) => {
 
 interface ListViewProps {
   style: ListStyle
+  filterText?: string
 }
 
 // @todo handle select
-const ListView: FunctionComponent<ListViewProps> = ({ style }) => {
+const ListView: FunctionComponent<ListViewProps> = ({ style, filterText }) => {
   const context = useContext(SelectedValueContext)
   const selected = context?.selected
   const data = useContext(BibleSelectorContext)
@@ -61,20 +63,34 @@ const ListView: FunctionComponent<ListViewProps> = ({ style }) => {
     <div>
       {groups.map((group) => (
         <Fragment key={group.type}>
-          <div className=" text-lg mt-2 sticky top-0 bg-white">
-            {group.name}
-          </div>
-          <ul className={`book-${style} mt-2`}>
-            {data?.books
-              .filter((book) => book.ot_or_nt === group.type)
-              .map((book) => (
-                <Item
-                  active={selected?.book === book.id}
-                  key={book.id}
-                  label={book.abbr_cn}
-                />
-              ))}
-          </ul>
+          <>
+            {(() => {
+              if (!data) return null
+              const books = data.books.filter(
+                (book) =>
+                  book.ot_or_nt === group.type &&
+                  (filterText ? book_filter(book, filterText) : true),
+              )
+              return (
+                books.length > 0 && (
+                  <>
+                    <div className=" text-lg mt-2 sticky top-0 bg-white">
+                      {group.name}
+                    </div>
+                    <ul className={`book-${style} mt-2`}>
+                      {books.map((book) => (
+                        <Item
+                          active={selected?.book === book.id}
+                          key={book.id}
+                          label={book.abbr_cn}
+                        />
+                      ))}
+                    </ul>
+                  </>
+                )
+              )
+            })()}
+          </>
         </Fragment>
       ))}
     </div>
@@ -84,12 +100,18 @@ const ListView: FunctionComponent<ListViewProps> = ({ style }) => {
 const BookList: FunctionComponent<BookListProps> = ({ className }) => {
   const listDiv = useRef<HTMLDivElement>(null)
   const [listStyle, setListStyle] = useState(readListStyleFromLocalStorage())
+  const [filterText, setFilterText] = useState('')
 
   useEffect(() => {
     // 重制滚动条
     if (listDiv.current) {
-      listDiv.current.querySelector('li.active')?.scrollIntoView()
-      listDiv.current.scrollTop -= 40
+      const active = listDiv.current.querySelector('li.active')
+      if (active) {
+        active.scrollIntoView()
+        listDiv.current.scrollTop -= 40
+      } else {
+        listDiv.current.scrollTop = 0
+      }
     }
   }, [listStyle])
 
@@ -103,6 +125,10 @@ const BookList: FunctionComponent<BookListProps> = ({ className }) => {
             type="text"
             className="form-control form-control-sm pl-8 rounded-2xl text-sm w-full"
             placeholder="过滤..."
+            value={filterText}
+            onChange={(e) => {
+              setFilterText(e.target.value)
+            }}
           />
         </div>
         <label className=" swap swap-rotate ml-2">
@@ -121,7 +147,7 @@ const BookList: FunctionComponent<BookListProps> = ({ className }) => {
         </label>
       </div>
       <div className="list-height overflow-y-auto list-content " ref={listDiv}>
-        <ListView style={listStyle} />
+        <ListView style={listStyle} filterText={filterText} />
       </div>
     </div>
   )
