@@ -40,10 +40,19 @@ const BibleSelector: FunctionComponent<BibleSelectorProps> = ({
     >
       <div className=" flex items-center">
         <BookDropDown />
-        <i className=" text-gray-400 mx-1 fa-solid fa-chevron-right"></i>
-        <ChapterDropDown />
-        <i className=" text-gray-400 mx-1 fa-solid fa-chevron-right"></i>
-        <VerseDropDown />
+        {selected?.book && (
+          <>
+            <i className=" text-gray-400 mx-1 fa-solid fa-chevron-right"></i>
+            <ChapterDropDown />
+
+            {selected.chapter && (
+              <>
+                <i className=" text-gray-400 mx-1 fa-solid fa-chevron-right"></i>
+                <VerseDropDown />
+              </>
+            )}
+          </>
+        )}
       </div>
     </SelectedValueContext.Provider>
   )

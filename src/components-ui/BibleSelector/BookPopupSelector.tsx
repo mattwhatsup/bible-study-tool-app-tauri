@@ -13,14 +13,12 @@ interface BookPopupSelectorProps extends HTMLAttributes<HTMLDivElement> {}
 const BookPopupSelector: FunctionComponent<
   BookPopupSelectorProps & Partial<BibleSelectorProps>
 > = ({ className, selectType, onClose }) => {
-  const context = useContext(SelectedValueContext)
+  const { selected } = useContext(SelectedValueContext)!
 
   // tailwindcss: handle dynamic classname in this way
   // https://tailwindcss.com/docs/content-configuration#dynamic-class-names
   const cols =
-    1 +
-    (context?.selected?.book ? 1 : 0) +
-    (context?.selected?.book && context?.selected?.chapter ? 1 : 0)
+    1 + (selected?.book ? 1 : 0) + (selected?.book && selected?.chapter ? 1 : 0)
   const widths = {
     1: 'w-[14rem]',
     2: 'w-[28rem]',
@@ -36,10 +34,8 @@ const BookPopupSelector: FunctionComponent<
       <BibleSelectorPanelCloser onClose={onClose} />
       <div className="flex ">
         <BookList className="flex-1 mt-2 " />
-        {context?.selected?.book && (
-          <ChapterList className="flex-1 mt-2 ml-2" />
-        )}
-        {context?.selected?.book && context?.selected?.chapter && (
+        {selected?.book && <ChapterList className="flex-1 mt-2 ml-2" />}
+        {selected?.book && selected?.chapter && (
           <VerseList className="flex-1 ml-2 mt-2" closeHandler={onClose} />
         )}
       </div>
