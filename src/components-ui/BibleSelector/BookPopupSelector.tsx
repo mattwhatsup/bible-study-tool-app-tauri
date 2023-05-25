@@ -40,7 +40,7 @@ const BookPopupSelector: FunctionComponent<
           <ChapterList className="flex-1 mt-2 ml-2" />
         )}
         {context?.selected?.book && context?.selected?.chapter && (
-          <VerseList className="flex-1 ml-2 mt-2" />
+          <VerseList className="flex-1 ml-2 mt-2" closeHandler={onClose} />
         )}
       </div>
     </div>

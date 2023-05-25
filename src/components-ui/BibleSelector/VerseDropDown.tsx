@@ -6,12 +6,7 @@ interface VerseDropDownProps {}
 
 const VerseDropDown: FunctionComponent<VerseDropDownProps> = () => {
   return (
-    <BibleDropDown
-      label={'选择节'}
-      selectType={SelectType.Verse}
-      selected={undefined}
-      onSelect={(value) => {}}
-    >
+    <BibleDropDown label={'选择节'} selectType={SelectType.Verse}>
       <VersePopupSelector className="dropdown-menu dropdown-content block !top-[120%] shadow-lg border-gray-200" />
     </BibleDropDown>
   )

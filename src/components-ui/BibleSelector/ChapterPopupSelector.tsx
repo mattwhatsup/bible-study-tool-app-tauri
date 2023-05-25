@@ -18,7 +18,7 @@ const ChapterPopupSelector: FunctionComponent<
     >
       <BibleSelectorPanelCloser onClose={onClose} />
       <ChapterList className="flex-1" />
-      <VerseList className="flex-1 ml-2" />
+      <VerseList className="flex-1 ml-2" closeHandler={onClose} />
     </div>
   )
 }
