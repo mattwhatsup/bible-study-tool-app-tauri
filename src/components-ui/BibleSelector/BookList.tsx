@@ -2,6 +2,7 @@ import {
   Fragment,
   FunctionComponent,
   HTMLAttributes,
+  MouseEvent,
   useContext,
   useEffect,
   useRef,
@@ -35,11 +36,12 @@ function writeListStyleToLocalStorage(v: string) {
 interface ItemProps {
   label: string
   active: boolean
+  onClick: (event: MouseEvent<HTMLElement>) => void
 }
 
-const Item: FunctionComponent<ItemProps> = ({ label, active }) => {
+const Item: FunctionComponent<ItemProps> = ({ label, active, onClick }) => {
   return (
-    <li className={active ? 'active' : ''}>
+    <li className={active ? 'active' : ''} onClick={onClick}>
       <span>{label}</span>
     </li>
   )
@@ -50,7 +52,6 @@ interface ListViewProps {
   filterText?: string
 }
 
-// @todo handle select
 const ListView: FunctionComponent<ListViewProps> = ({ style, filterText }) => {
   const context = useContext(SelectedValueContext)
   const selected = context?.selected
@@ -82,7 +83,19 @@ const ListView: FunctionComponent<ListViewProps> = ({ style, filterText }) => {
                         <Item
                           active={selected?.book === book.id}
                           key={book.id}
-                          label={book.abbr_cn}
+                          label={
+                            style === ListStyle.grid
+                              ? book.abbr_cn
+                              : book.name_cn
+                          }
+                          onClick={() => {
+                            if (context) {
+                              context.setSelected({
+                                ...selected,
+                                book: book.id,
+                              })
+                            }
+                          }}
                         />
                       ))}
                     </ul>
@@ -141,9 +154,9 @@ const BookList: FunctionComponent<BookListProps> = ({ className }) => {
             }}
             checked={listStyle === ListStyle.list}
           />
-          <i className="fa fa-th swap-off" aria-hidden="true" />
+          <i className="fa fa-th swap-on" aria-hidden="true" />
 
-          <i className="fa fa-bars swap-on" aria-hidden="true" />
+          <i className="fa fa-bars swap-off" aria-hidden="true" />
         </label>
       </div>
       <div className="list-height overflow-y-auto list-content " ref={listDiv}>

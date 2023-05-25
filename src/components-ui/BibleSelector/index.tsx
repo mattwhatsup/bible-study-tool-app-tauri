@@ -14,7 +14,7 @@ export const SelectedValueContext = createContext<
   | undefined
 >(undefined)
 interface BibleSelectorProps {
-  onChange?: Function
+  onChange?: (selected: SelectValue) => void
   selected?: SelectValue
 }
 
