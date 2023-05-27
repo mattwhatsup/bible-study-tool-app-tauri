@@ -2,7 +2,7 @@ import { invoke } from '@tauri-apps/api'
 import { FunctionComponent, useState } from 'react'
 import Sidebar from './components-ui/Sidebar'
 import { NavLink, Route, Routes } from 'react-router-dom'
-import { Button, Switch } from '@material-tailwind/react'
+import { Switch } from '@material-tailwind/react'
 import DropDownButton from './components-ui/DropDownButton'
 import BibleSelector from './components-ui/BibleSelector'
 import { bibleApi } from './app/api'
@@ -17,6 +17,7 @@ import Prompt from './components-ui/Dialog/Prompt'
 import AlertWrapper from './components-ui/Dialog/AlertWrapper'
 import ConfirmWrapper from './components-ui/Dialog/ConfirmWrapper'
 import PromptWrapper from './components-ui/Dialog/PromptWrapper'
+import Button from './components-ui/Button'
 
 interface AppProps {}
 
@@ -30,6 +31,7 @@ const App: FunctionComponent<AppProps> = () => {
 
   return (
     <div className="w-screen h-screen ">
+      <Button />
       {/* <BibleSelector
         selected={selected}
         onChange={(selected) => {
@@ -52,7 +54,7 @@ const App: FunctionComponent<AppProps> = () => {
       >
         all chapter verses count
       </button> */}
-      <ModalWrapper
+      {/* <ModalWrapper
         dialog={
           <Modal
             title={'hello'}
@@ -69,7 +71,7 @@ const App: FunctionComponent<AppProps> = () => {
         }
       >
         <Button>click</Button>
-      </ModalWrapper>
+      </ModalWrapper> */}
       {/* <Prompt
         title={'贵庚啊？'}
         getValueFn={() => text}
