@@ -7,16 +7,16 @@ import DropDownButton from './components-ui/DropDownButton'
 import BibleSelector from './components-ui/BibleSelector'
 import { bibleApi } from './app/api'
 import { SelectValue } from './components-ui/BibleSelector/BibleDropDown'
-import Modal from './components-ui/dialog/Modal'
+import Modal from './components-ui/Dialog/Modal'
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import ModalWrapper from './components-ui/dialog/ModalWrapper'
-import Alert from './components-ui/dialog/Alert'
-import Confirm from './components-ui/dialog/Confirm'
-import Prompt from './components-ui/dialog/Prompt'
-import AlertWrapper from './components-ui/dialog/AlertWrapper'
-import ConfirmWrapper from './components-ui/dialog/ConfirmWrapper'
-import PromptWrapper from './components-ui/dialog/PromptWrapper'
+import ModalWrapper from './components-ui/Dialog/ModalWrapper'
+import Alert from './components-ui/Dialog/Alert'
+import Confirm from './components-ui/Dialog/Confirm'
+import Prompt from './components-ui/Dialog/Prompt'
+import AlertWrapper from './components-ui/Dialog/AlertWrapper'
+import ConfirmWrapper from './components-ui/Dialog/ConfirmWrapper'
+import PromptWrapper from './components-ui/Dialog/PromptWrapper'
 
 interface AppProps {}
 
@@ -52,7 +52,7 @@ const App: FunctionComponent<AppProps> = () => {
       >
         all chapter verses count
       </button> */}
-      {/* <ModalWrapper
+      <ModalWrapper
         dialog={
           <Modal
             title={'hello'}
@@ -69,7 +69,7 @@ const App: FunctionComponent<AppProps> = () => {
         }
       >
         <Button>click</Button>
-      </ModalWrapper> */}
+      </ModalWrapper>
       {/* <Prompt
         title={'贵庚啊？'}
         getValueFn={() => text}

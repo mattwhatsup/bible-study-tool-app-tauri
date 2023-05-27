@@ -2,6 +2,8 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, FunctionComponent, ReactNode } from 'react'
 import { isReactNode } from '../../utils/checker'
 import { XMarkIcon } from '@heroicons/react/20/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 export type Size =
   | 'xs'
@@ -108,6 +110,13 @@ const Modal: FunctionComponent<ModalProps> = ({
                     }}
                     className="w-6 h-6 absolute right-2 top-2 text-gray-400 hover:text-black cursor-pointer"
                   />
+                  // <FontAwesomeIcon
+                  //   icon={faXmark}
+                  //   className="w-5 h-5 absolute right-2 top-2 text-gray-400 hover:text-black cursor-pointer"
+                  //   onClick={() => {
+                  //     onClose?.()
+                  //   }}
+                  // />
                 )}
                 <Dialog.Title
                   as="h3"
