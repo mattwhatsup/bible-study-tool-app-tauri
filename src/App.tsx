@@ -84,6 +84,7 @@ const App: FunctionComponent<AppProps> = () => {
       <OutLineButton purpose="light" size="xs">
         个人档案
       </OutLineButton>
+      <DropDownButton />
 
       <Button purpose="light" size="xs" rounded="xl" shadowless>
         my homepage

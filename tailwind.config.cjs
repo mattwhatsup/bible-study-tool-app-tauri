@@ -1,11 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 const withMT = require('@material-tailwind/react/utils/withMT')
+const colors = require('tailwindcss/colors')
+
 module.exports = withMT({
   // prefix: 'tw-',
+  mode: 'jit',
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
+        violet: colors.violet,
+        slate: colors.slate,
         secondary: {
           50: '#f7f7f7',
           100: '#eeefef',
