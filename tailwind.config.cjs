@@ -124,6 +124,6 @@ module.exports = withMT({
     //   danger: '#e3342f',
     // }),
   },
-  plugins: [require('daisyui')],
+  plugins: [require('daisyui'), require('@headlessui/tailwindcss')],
   darkMode: 'class',
 })

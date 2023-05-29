@@ -9,7 +9,7 @@ import { bibleApi } from './app/api'
 import { SelectValue } from './components-ui/BibleSelector/BibleDropDown'
 import Modal from './components-ui/Dialog/Modal'
 import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import { Dialog, Menu, Transition } from '@headlessui/react'
 import ModalWrapper from './components-ui/Dialog/ModalWrapper'
 import Alert from './components-ui/Dialog/Alert'
 import Confirm from './components-ui/Dialog/Confirm'
@@ -27,6 +27,9 @@ console.log(colors)
 interface AppProps {}
 
 const App: FunctionComponent<AppProps> = () => {
+  const [drop1, setDrop1] = useState<number | undefined>()
+  const [drop2, setDrop2] = useState<Array<number> | undefined>()
+
   const [selected, setSelected] = useState<SelectValue>({
     book: 811335,
     chapter: 1,
@@ -84,7 +87,70 @@ const App: FunctionComponent<AppProps> = () => {
       <OutLineButton purpose="light" size="xs">
         个人档案
       </OutLineButton>
-      <DropDownButton />
+      <DropDownButton
+        items={['item1', 'item2', 'item3']}
+        selectedIndex={drop1}
+        onItemClick={(index) => {
+          console.log(index)
+
+          setDrop1(index)
+        }}
+        itemRender={({ item, index, selected = false, onItemClick }) => (
+          <Menu.Item key={index}>
+            {({ active, close }) => (
+              <a
+                className={`${
+                  active ? 'bg-violet-500 text-white' : '  text-gray-900'
+                } group w-full items-center rounded-md px-2 py-2 text-sm cursor-pointer inline-flex justify-between`}
+                onClick={(e) => {
+                  e.preventDefault()
+                  onItemClick?.(index)
+                  close()
+                }}
+              >
+                {item}
+                <i className={`fa-solid ${selected ? 'fa-check' : ''}`} />
+              </a>
+            )}
+          </Menu.Item>
+        )}
+        label="选项"
+      />
+
+      <DropDownButton
+        items={['item1', 'item2', 'item3']}
+        multi
+        justifyRight
+        selectedIndex={drop2}
+        onItemClick={(index) => {
+          const v = drop2 || []
+          if (v.includes(index)) {
+            setDrop2(v.filter((n) => n != index))
+          } else {
+            setDrop2([...v, index])
+          }
+        }}
+        itemRender={({ item, index, selected = false, onItemClick }) => (
+          <Menu.Item key={index}>
+            {({ active, close }) => (
+              <a
+                className={`${
+                  active ? 'bg-violet-500 text-white' : '  text-gray-900'
+                } group w-full items-center rounded-md px-2 py-2 text-sm cursor-pointer inline-flex justify-between`}
+                onClick={(e) => {
+                  e.preventDefault()
+                  onItemClick?.(index)
+                  close()
+                }}
+              >
+                {item}
+                <i className={`fa-solid ${selected ? 'fa-check' : ''}`} />
+              </a>
+            )}
+          </Menu.Item>
+        )}
+        label="选项2"
+      />
 
       <Button purpose="light" size="xs" rounded="xl" shadowless>
         my homepage
