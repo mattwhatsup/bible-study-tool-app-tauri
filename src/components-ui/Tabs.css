@@ -1,17 +1,17 @@
 .tab-scroller-control {
-  @apply tw-tab tw-tab-lifted;
+  @apply tab tab-lifted;
   border-top-width: 0;
   border-right-width: 0;
   border-left-width: 0;
 }
 .tab-utility-control {
-  @apply tw-tab tw-tab-lifted;
+  @apply tab tab-lifted;
   flex-basis: 2rem;
   border-top-width: 0;
   border-right-width: 0;
   border-left-width: 0;
 }
-.tw-tab-lifted {
+.tab-lifted {
   border-top-color: var(--tab-border-color);
   border-right-color: var(--tab-border-color);
   border-left-color: var(--tab-border-color);
@@ -21,4 +21,8 @@
   border-top-width: 0;
   border-right-width: 0;
   border-left-width: 0;
+}
+.tab-lifted.tab-active:not(.tab-disabled):not([disabled]) {
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
 }
