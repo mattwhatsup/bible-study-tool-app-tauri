@@ -67,15 +67,14 @@ const TabItem: FunctionComponent<TabItemProps> = ({
   )
 
   return (
-    <span
-      ref={(element) => drop(drag(element))}
-      className={`${isDragging ? 'opacity-30 bg-yellow-300/40' : ''}`}
-    >
+    <span ref={(element) => drop(drag(element))}>
       <label
         ref={labelRef}
         className={`group tab tab-lifted relative px-6 ${
-          isActive ? 'tab-active' : ''
-        }  ${isOver ? '!bg-blue-gray-100/40' : ''}`}
+          isDragging ? 'opacity-30 !bg-cyan-400/30' : ''
+        } ${isActive ? 'tab-active' : ''}  ${
+          isOver ? '!bg-blue-gray-100/40' : ''
+        }`}
         onClick={onClick}
       >
         {label}
