@@ -1,18 +1,21 @@
-import { FunctionComponent, ReactElement } from 'react'
+import { FunctionComponent, ReactElement, useCallback } from 'react'
 import './Tabs.css'
+import TabItem from './TabItem'
 
 interface TabsProps<T> {
   onChoose?: (index: number) => void
   onRemove?: (index: number) => void
-  onSort?: () => void
+  onSort?: (fromIndex: number, toIndex: number) => void
   onAdd?: () => void
   activeIndex: number
   items: T[]
-  tabLabelText?: (items: T) => string
+  tabLabelText: (items: T) => string
+  tabUniqId: (items: T) => string
 }
 
 const Tabs = <T extends unknown>({
   tabLabelText,
+  tabUniqId,
   items,
   activeIndex = 0,
   onChoose,
@@ -20,6 +23,17 @@ const Tabs = <T extends unknown>({
   onSort,
   onAdd,
 }: TabsProps<T>) => {
+  const findItemIndex = useCallback(
+    (id: string) => items.findIndex((item) => tabUniqId(item) === id),
+    [items],
+  )
+  const moveItem = useCallback(
+    (fromIndex: number, toIndex: number) => {
+      onSort?.(fromIndex, toIndex)
+    },
+    [items],
+  )
+
   return (
     <div className="flex">
       <span className="tab-scroller-control">
@@ -33,39 +47,18 @@ const Tabs = <T extends unknown>({
 
       <div className="tabs flex-1 flex-nowrap overflow-hidden">
         {items?.map((item, index) => (
-          <label
-            className={`group tab tab-lifted relative px-6 ${
-              activeIndex === index ? 'tab-active' : ''
-            }`}
-            key={index}
+          <TabItem
+            key={tabUniqId(item)}
+            uniqId={tabUniqId(item)}
+            label={tabLabelText(item)}
+            isActive={activeIndex === index}
             onClick={() => onChoose?.(index)}
-          >
-            {tabLabelText?.(item)}
-            <span
-              className={`absolute top-1 right-1 hidden ${
-                activeIndex !== index ? 'group-hover:block' : ''
-              } `}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-3 h-3 hover:bg-blue-gray-50"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  onRemove?.(index)
-                }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </span>
-          </label>
+            onRemove={() => {
+              onRemove?.(index)
+            }}
+            findItemIndex={findItemIndex}
+            moveItem={moveItem}
+          />
         ))}
 
         <span className="tab tab-lifted flex-1 tab-placeholder">

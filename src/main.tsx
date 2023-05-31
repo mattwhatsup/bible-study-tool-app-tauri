@@ -9,6 +9,8 @@ import {
   // createHashRouter as createRouter,
 } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 import '@fortawesome/fontawesome-free/css/all.css'
 import './styles.css'
 import { store } from './app/store'
@@ -38,7 +40,9 @@ const router = createRouter([
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <DndProvider backend={HTML5Backend}>
+        <RouterProvider router={router} />
+      </DndProvider>
     </Provider>
   </React.StrictMode>,
 )

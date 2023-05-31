@@ -22,14 +22,13 @@ import OutLineButton from './components-ui/Button/OutlineButton'
 import colors from 'tailwindcss/colors'
 import GradientButton from './components-ui/Button/GradientButton'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import BibleViewTabs from './components-ui/BibleViewTabs'
-console.log(colors)
+import BibleViewTabs from './components-ui/Tabs/BibleViewTabs'
 
 interface AppProps {}
 
 const App: FunctionComponent<AppProps> = () => {
   return (
-    <div>
+    <div className=" w-screen h-screen">
       <BibleViewTabs />
     </div>
   )
