@@ -3,11 +3,11 @@ import './Tabs.css'
 import TabItem from './TabItem'
 
 interface TabsProps<T> {
-  onChoose?: (index: number) => void
+  onChoose?: (id: string) => void
   onRemove?: (index: number) => void
   onSort?: (fromIndex: number, toIndex: number) => void
   onAdd?: () => void
-  activeIndex: number
+  activeId: string
   items: T[]
   tabLabelText: (items: T) => string
   tabUniqId: (items: T) => string
@@ -17,7 +17,7 @@ const Tabs = <T extends unknown>({
   tabLabelText,
   tabUniqId,
   items,
-  activeIndex = 0,
+  activeId,
   onChoose,
   onRemove,
   onSort,
@@ -51,8 +51,8 @@ const Tabs = <T extends unknown>({
             key={tabUniqId(item)}
             uniqId={tabUniqId(item)}
             label={tabLabelText(item)}
-            isActive={activeIndex === index}
-            onClick={() => onChoose?.(index)}
+            isActive={activeId === tabUniqId(item)}
+            onClick={() => onChoose?.(tabUniqId(item))}
             onRemove={() => {
               onRemove?.(index)
             }}

@@ -19,22 +19,19 @@ const BibleViewTabs: FunctionComponent<BibleViewTabsProps> = ({ ...props }) => {
     { uniqId: 'c', book: { id: 3, name: 'ccc' }, chapter: 1, verse: 1 },
     { uniqId: 'd', book: { id: 4, name: 'ddd' }, chapter: 1, verse: 1 },
   ])
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeId, setActiveId] = useState('a')
 
   return (
     <Tabs
       items={items}
-      activeIndex={activeIndex}
+      activeId={activeId}
       tabLabelText={(item) => `${item.book.name}${item.chapter}章`}
       tabUniqId={(item) => item.uniqId}
       onRemove={(index) => {
         setItems([...items.slice(0, index), ...items.slice(index + 1)])
-        if (index < activeIndex) {
-          setActiveIndex(activeIndex - 1)
-        }
       }}
-      onChoose={(index) => {
-        setActiveIndex(index)
+      onChoose={(id) => {
+        setActiveId(id)
       }}
       onAdd={() => {
         setItems([
