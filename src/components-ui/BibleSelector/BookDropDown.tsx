@@ -1,18 +1,22 @@
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useContext } from 'react'
 import BookPopupSelector from './BookPopupSelector'
+import BibleDropDown, { SelectType } from './BibleDropDown'
+import { BibleSelectorContext } from './BibleSelectorContextProvider'
+import { SelectedValueContext } from '.'
 
 interface BookDropDownProps {}
 
 const BookDropDown: FunctionComponent<BookDropDownProps> = () => {
-  return (
-    <div className="tw-dropdown tw-dropdown-bottom tw-dropdown-start">
-      <label tabIndex={0} className="tw-btn tw-m-1 tw-btn-sm tw-btn-primary">
-        <span className="tw-mr-2">选择书</span>
-        <i className="fa-solid fa-chevron-down"></i>
-      </label>
+  const { books } = useContext(BibleSelectorContext)!
+  const { selected } = useContext(SelectedValueContext)!
+  const label = selected?.book
+    ? books.find((book) => book.id === selected.book)!.name_cn
+    : '<选择书>'
 
-      <BookPopupSelector className="dropdown-menu tw-dropdown-content tw-block !tw-top-[120%] tw-shadow-lg tw-border-gray-200" />
-    </div>
+  return (
+    <BibleDropDown label={label} selectType={SelectType.Book}>
+      <BookPopupSelector className="shadow-lg border-gray-200" />
+    </BibleDropDown>
   )
 }
 

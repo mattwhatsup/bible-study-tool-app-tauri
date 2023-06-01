@@ -5,9 +5,6 @@
 )]
 // #![allow(unused)]
 
-#[cfg(target_os = "macos")]
-#[macro_use]
-extern crate objc;
 // use bible_study_tool_app::Database;
 use rusqlite::Connection;
 use tauri::{http::version, Manager};
@@ -18,12 +15,13 @@ use tauri::State;
 
 use bible_study_tool_app::database::bible::{
     query_all_bookgroups, query_all_books,
-    query_book_by_name, query_book_group_set,
-    query_chapter_verses, query_one_verse,
-    query_one_verse_by_id, query_strong_number,
+    query_all_chapter_verses_count, query_book_by_name,
+    query_book_group_set, query_chapter_verses,
+    query_one_verse, query_one_verse_by_id,
+    query_strong_number,
     search_verses_contain_strong_number, BibleVersion,
-    Book, BookGroup, BookNameType, Lang, StrongDictItem,
-    Verse,
+    Book, BookGroup, BookNameType, ChapterVersesCount,
+    Lang, StrongDictItem, Verse,
 };
 
 struct DbConnection {
@@ -184,6 +182,16 @@ fn api_search_verses_contain_strong_number(
         .unwrap()
 }
 
+#[tauri::command]
+fn api_query_all_chapter_verses_count(
+    connection: State<DbConnection>,
+) -> Vec<ChapterVersesCount> {
+    let db = connection.db.lock();
+    let conn = db.as_ref().unwrap().as_ref().unwrap();
+
+    query_all_chapter_verses_count(conn).unwrap()
+}
+
 fn main() {
     tauri::Builder::default()
         .setup(|app| {
@@ -217,7 +225,8 @@ fn main() {
             api_query_one_verse,
             api_query_one_verse_by_id,
             api_query_strong_number,
-            api_search_verses_contain_strong_number
+            api_search_verses_contain_strong_number,
+            api_query_all_chapter_verses_count
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -1,132 +1,35 @@
-import { FunctionComponent, HTMLAttributes } from 'react'
+import { FunctionComponent, HTMLAttributes, useContext } from 'react'
+import { BibleSelectorContext } from './BibleSelectorContextProvider'
+import { SelectedValueContext } from '.'
+import BibleSelectorItem from './BibleSelectorItem'
 
 interface ChapterListProps extends HTMLAttributes<HTMLDivElement> {}
 
 const ChapterList: FunctionComponent<ChapterListProps> = ({ className }) => {
+  const data = useContext(BibleSelectorContext)!
+  const { selected, setSelected } = useContext(SelectedValueContext)!
+
+  const capterCount = data.books.find(
+    (book) => book.id === selected!.book,
+  )!.chapter_count
+
   return (
     <div className={className}>
-      <div className="tw-flex tw-items-center book-list-header tw-leading-[31px]">
-        <span className=" tw-font-bold">章</span>
+      <div className="flex items-center book-list-header leading-[31px]">
+        <span className=" font-bold">章</span>
       </div>
-      <div className="list-height tw-overflow-y-auto list-content">
-        <ul className="book-grid tw-mt-2 tw-mr-2">
-          <li>
-            <span>1</span>
-          </li>
-          <li className="active">
-            <span>2</span>
-          </li>
-          <li>
-            <span>3</span>
-          </li>
-          <li>
-            <span>4</span>
-          </li>
-          <li>
-            <span>5</span>
-          </li>
-          <li>
-            <span>3</span>
-          </li>
-          <li>
-            <span>4</span>
-          </li>
-          <li>
-            <span>5</span>
-          </li>
-          <li>
-            <span>6</span>
-          </li>
-          <li>
-            <span>7</span>
-          </li>
-          <li>
-            <span>8</span>
-          </li>
-          <li>
-            <span>5</span>
-          </li>
-          <li>
-            <span>6</span>
-          </li>
-          <li>
-            <span>7</span>
-          </li>
-          <li>
-            <span>8</span>
-          </li>
-          <li>
-            <span>5</span>
-          </li>
-          <li>
-            <span>6</span>
-          </li>
-          <li>
-            <span>7</span>
-          </li>
-          <li>
-            <span>8</span>
-          </li>
-          <li>
-            <span>5</span>
-          </li>
-          <li>
-            <span>6</span>
-          </li>
-          <li>
-            <span>7</span>
-          </li>
-          <li>
-            <span>8</span>
-          </li>
-          <li>
-            <span>5</span>
-          </li>
-          <li>
-            <span>6</span>
-          </li>
-          <li>
-            <span>7</span>
-          </li>
-          <li>
-            <span>8</span>
-          </li>
-          <li>
-            <span>5</span>
-          </li>
-          <li>
-            <span>6</span>
-          </li>
-          <li>
-            <span>7</span>
-          </li>
-          <li>
-            <span>8</span>
-          </li>
-          <li>
-            <span>5</span>
-          </li>
-          <li>
-            <span>6</span>
-          </li>
-          <li>
-            <span>7</span>
-          </li>
-          <li>
-            <span>8</span>
-          </li>
-          <li>
-            <span>5</span>
-          </li>
-          <li>
-            <span>6</span>
-          </li>
-          <li>
-            <span>7</span>
-          </li>
-          <li>
-            <span>8</span>
-          </li>
+      <div className="list-height overflow-y-auto list-content">
+        <ul className="book-grid mt-2 ">
+          {[...Array(capterCount)].map((_, index) => (
+            <BibleSelectorItem
+              active={selected?.chapter === index + 1}
+              label={index + 1}
+              key={index}
+              onClick={() => {
+                setSelected({ ...selected, chapter: index + 1 })
+              }}
+            />
+          ))}
         </ul>
       </div>
     </div>

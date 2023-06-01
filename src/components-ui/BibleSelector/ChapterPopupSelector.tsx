@@ -1,25 +1,36 @@
-import { FunctionComponent, HTMLAttributes } from 'react'
+import { FunctionComponent, HTMLAttributes, useContext } from 'react'
 import ChapterList from './ChapterList'
 import VerseList from './VerseList'
 import './BibleSelector.css'
+import { BibleSelectorProps } from './BibleDropDown'
+import BibleSelectorPanelCloser from './BibleSelectorPanelCloser'
+import { SelectedValueContext } from '.'
 
 interface ChapterPopupSelectorProps extends HTMLAttributes<HTMLDivElement> {}
 
-const ChapterPopupSelector: FunctionComponent<ChapterPopupSelectorProps> = ({
-  className,
-}) => {
+const ChapterPopupSelector: FunctionComponent<
+  ChapterPopupSelectorProps & Partial<BibleSelectorProps>
+> = ({ className, onClose }) => {
+  const { selected } = useContext(SelectedValueContext)!
+
+  const cols = 1 + (selected?.chapter ? 1 : 0)
+  const widths = {
+    1: 'w-[14rem]',
+    2: 'w-[28rem]',
+  } as Record<number, string>
+
   return (
     <div
       className={
-        'pop lt tw-bg-white tw-p-2 tw-flex tw-w-[26rem] tw-relative tw-rounded-md ' +
+        `pop lt bg-white p-2 flex ${widths[cols]} relative rounded-md ` +
         className
       }
     >
-      <button className=" tw-absolute tw-right-2 tw-top-1">
-        <i className="fa-solid fa-rectangle-xmark"></i>
-      </button>
-      <ChapterList className="tw-flex-1" />
-      <VerseList className="tw-flex-1 tw-ml-2" />
+      <BibleSelectorPanelCloser onClose={onClose} />
+      <ChapterList className="flex-1" />
+      {selected?.chapter && (
+        <VerseList className="flex-1 ml-2" closeHandler={onClose} />
+      )}
     </div>
   )
 }

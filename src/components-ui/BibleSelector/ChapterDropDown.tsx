@@ -1,18 +1,18 @@
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useContext } from 'react'
 import ChapterPopupSelector from './ChapterPopupSelector'
+import BibleDropDown, { SelectType } from './BibleDropDown'
+import { SelectedValueContext } from '.'
 
 interface ChapterDropDownProps {}
 
 const ChapterDropDown: FunctionComponent<ChapterDropDownProps> = () => {
-  return (
-    <div className="tw-dropdown tw-dropdown-bottom tw-dropdown-start">
-      <label tabIndex={0} className="tw-btn tw-m-1 tw-btn-sm tw-btn-primary">
-        <span className="tw-mr-2">选择章</span>
-        <i className="fa-solid fa-chevron-down"></i>
-      </label>
+  const { selected } = useContext(SelectedValueContext)!
+  const label = selected?.chapter ? `${selected.chapter}章` : '<选择章>'
 
-      <ChapterPopupSelector className="dropdown-menu tw-dropdown-content tw-block !tw-top-[120%] tw-shadow-lg tw-border-gray-200" />
-    </div>
+  return (
+    <BibleDropDown label={label} selectType={SelectType.Chapter}>
+      <ChapterPopupSelector className="dropdown-menu dropdown-content block !top-[120%] shadow-lg border-gray-200" />
+    </BibleDropDown>
   )
 }
 

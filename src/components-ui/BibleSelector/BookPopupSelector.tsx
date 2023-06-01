@@ -1,28 +1,44 @@
-import { FunctionComponent, HTMLAttributes } from 'react'
+import { FunctionComponent, HTMLAttributes, useContext, useState } from 'react'
 import BookList from './BookList'
 import ChapterList from './ChapterList'
 import VerseList from './VerseList'
+import { BibleSelectorProps, SelectValue } from './BibleDropDown'
 import './BibleSelector.css'
+import BibleSelectorPanelCloser from './BibleSelectorPanelCloser'
+import { Popover } from '@headlessui/react'
+import { SelectedValueContext } from '.'
 
 interface BookPopupSelectorProps extends HTMLAttributes<HTMLDivElement> {}
 
-const BookPopupSelector: FunctionComponent<BookPopupSelectorProps> = ({
-  className,
-}) => {
+const BookPopupSelector: FunctionComponent<
+  BookPopupSelectorProps & Partial<BibleSelectorProps>
+> = ({ className, selectType, onClose }) => {
+  const { selected } = useContext(SelectedValueContext)!
+
+  // tailwindcss: handle dynamic classname in this way
+  // https://tailwindcss.com/docs/content-configuration#dynamic-class-names
+  const cols =
+    1 + (selected?.book ? 1 : 0) + (selected?.book && selected?.chapter ? 1 : 0)
+  const widths = {
+    1: 'w-[14rem]',
+    2: 'w-[28rem]',
+    3: 'w-[42rem]',
+  } as Record<number, string>
+
   return (
     <div
       className={
-        ' pop lt tw-bg-white tw-p-2 tw-flex tw-w-[42rem] tw-relative tw-rounded-md ' +
-        className
+        ` pop lt bg-white p-2 ${widths[cols]} relative rounded-md ` + className
       }
     >
-      <button className=" tw-absolute tw-right-2 tw-top-1">
-        <i className="fa-solid fa-rectangle-xmark"></i>
-      </button>
-
-      <BookList className="tw-flex-1 tw-mr-4" />
-      <ChapterList className="tw-flex-1" />
-      <VerseList className="tw-flex-1 tw-ml-2" />
+      <BibleSelectorPanelCloser onClose={onClose} />
+      <div className="flex ">
+        <BookList className="flex-1 mt-2 " />
+        {selected?.book && <ChapterList className="flex-1 mt-2 ml-2" />}
+        {selected?.book && selected?.chapter && (
+          <VerseList className="flex-1 ml-2 mt-2" closeHandler={onClose} />
+        )}
+      </div>
     </div>
   )
 }

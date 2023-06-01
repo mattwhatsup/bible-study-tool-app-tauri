@@ -22,6 +22,7 @@ export enum OtOrNt {
 }
 
 export type DataBook = {
+  id: number
   name_cn: string
   name_en: string
   name_tr: string
@@ -75,6 +76,13 @@ export type DataStrongDictItem = {
   class_tr: string
   class_cn: string
   exclude: number
+}
+
+export type ChapterVersesCount = {
+  book_id: number
+  chapter: number
+  verses_count: number
+  book_sn: string
 }
 
 export const bibleApi = {
@@ -163,5 +171,8 @@ export const bibleApi = {
       lang: Lang.Hebrew ? 'Hebrew' : 'Greek',
       n,
     })
+  },
+  async queryAllChapterVersesCount(): Promise<Array<ChapterVersesCount>> {
+    return await invoke('api_query_all_chapter_verses_count')
   },
 }

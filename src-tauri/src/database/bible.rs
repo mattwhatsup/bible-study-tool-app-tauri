@@ -48,8 +48,9 @@ fn book_from_row(row: &Row) -> MyResult<Book> {
 pub fn query_all_books(
     conn: &Connection,
 ) -> MyResult<Vec<Book>> {
-    let mut stmt =
-        conn.prepare("SELECT * FROM bible_book")?;
+    let mut stmt = conn.prepare(
+        "SELECT * FROM bible_book order by display_order",
+    )?;
     let rows = stmt.query_map([], |row| {
         Ok(book_from_row(row).unwrap())
     })?;
@@ -59,6 +60,35 @@ pub fn query_all_books(
     }
 
     Ok(books)
+}
+
+#[derive(Debug, serde::Serialize)]
+pub struct ChapterVersesCount {
+    pub book_id: i32,
+    pub chapter: i32,
+    pub verses_count: i32,
+    pub book_sn: String,
+}
+
+pub fn query_all_chapter_verses_count(
+    conn: &Connection,
+) -> MyResult<Vec<ChapterVersesCount>> {
+    let mut stmt =
+        conn.prepare("SELECT * FROM bible_versecount")?;
+    let rows = stmt.query_map([], |row| {
+        Ok(ChapterVersesCount {
+            book_id: row.get(1)?,
+            chapter: row.get(2)?,
+            verses_count: row.get(3)?,
+            book_sn: row.get(4)?,
+        })
+    })?;
+    let mut ret = vec![];
+    for row in rows {
+        ret.push(row?);
+    }
+
+    Ok(ret)
 }
 
 #[derive(Debug, EnumString)]
