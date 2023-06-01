@@ -32,73 +32,73 @@ interface SidebarProps {}
 const Sidebar: FunctionComponent<SidebarProps> = () => {
   return (
     <nav
-      className=" tw-fixed tw-top-0 tw-left-0 tw-z-[1035] tw-h-screen tw-w-12
-      -tw-translate-x-full data-[sidebar-hidden='false']:tw-translate-x-0
-      tw-overflow-hidden tw-bg-zinc-900 tw-shadow-md tw-text-emerald-100"
+      className=" fixed top-0 left-0 z-[1035] h-screen w-12
+      -translate-x-full data-[sidebar-hidden='false']:translate-x-0
+      overflow-hidden bg-blue-gray-800 shadow-md text-emerald-100"
       data-sidebar-hidden="false"
     >
-      <ul className="tw-relative tw-m-0 tw-list-none tw-py-[0.2rem] sidebar-tabs">
-        <li className="tw-relative active">
+      <ul className="relative m-0 list-none py-[0.2rem] sidebar-tabs">
+        <li className="relative active">
           <a
-            className="tw-text-gray-400 hover:tw-bg-white/10 hover:tw-outline-none
-             focus:tw-bg-white/10 active:tw-bg-white/10 hover:tw-text-gray-300
-              active:tw-outline-none tw-w-full tw-h-12 tw-flex tw-items-center tw-justify-center
-              tw-cursor-pointer"
+            className="text-gray-400 hover:bg-white/10 hover:outline-none
+             focus:bg-white/10 active:bg-white/10 hover:text-gray-300
+              active:outline-none w-full h-12 flex items-center justify-center
+              cursor-pointer"
           >
             <i className="fa-solid fa-magnifying-glass"></i>
           </a>
         </li>
-        <li className="tw-relative">
+        <li className="relative">
           <a
-            className="tw-text-gray-300 hover:tw-bg-white/10 hover:tw-outline-none
-             focus:tw-bg-white/10 active:tw-bg-white/10 hover:tw-text-gray-300
-              active:tw-outline-none tw-w-full tw-h-12 tw-flex tw-items-center tw-justify-center
-              tw-cursor-pointer"
+            className="text-gray-300 hover:bg-white/10 hover:outline-none
+             focus:bg-white/10 active:bg-white/10 hover:text-gray-300
+              active:outline-none w-full h-12 flex items-center justify-center
+              cursor-pointer"
           >
             <i className="fa-solid fa-a"></i>
           </a>
         </li>
 
-        <li className="tw-relative">
+        <li className="relative">
           <a
-            className="tw-text-gray-300 hover:tw-bg-white/10 hover:tw-outline-none
-             focus:tw-bg-white/10 active:tw-bg-white/10 hover:tw-text-gray-300
-              active:tw-outline-none tw-w-full tw-h-12 tw-flex tw-items-center tw-justify-center
-              tw-cursor-pointer"
+            className="text-gray-300 hover:bg-white/10 hover:outline-none
+             focus:bg-white/10 active:bg-white/10 hover:text-gray-300
+              active:outline-none w-full h-12 flex items-center justify-center
+              cursor-pointer"
           >
             <i className="fa-solid fa-pen"></i>
           </a>
         </li>
 
-        <li className="tw-relative">
+        <li className="relative">
           <a
-            className="tw-text-gray-300 hover:tw-bg-white/10 hover:tw-outline-none
-             focus:tw-bg-white/10 active:tw-bg-white/10 hover:tw-text-gray-300
-              active:tw-outline-none tw-w-full tw-h-12 tw-flex tw-items-center tw-justify-center
-              tw-cursor-pointer"
+            className="text-gray-300 hover:bg-white/10 hover:outline-none
+             focus:bg-white/10 active:bg-white/10 hover:text-gray-300
+              active:outline-none w-full h-12 flex items-center justify-center
+              cursor-pointer"
           >
             <i className="fa-regular fa-circle-check"></i>
           </a>
         </li>
-        <li className="tw-relative">
+        <li className="relative">
           <a
-            className="tw-text-gray-300 hover:tw-bg-white/10 hover:tw-outline-none
-             focus:tw-bg-white/10 active:tw-bg-white/10 hover:tw-text-gray-300
-              active:tw-outline-none tw-w-full tw-h-12 tw-flex tw-items-center tw-justify-center
-              tw-cursor-pointer"
+            className="text-gray-300 hover:bg-white/10 hover:outline-none
+             focus:bg-white/10 active:bg-white/10 hover:text-gray-300
+              active:outline-none w-full h-12 flex items-center justify-center
+              cursor-pointer"
           >
             <i className="fa-solid fa-list"></i>
           </a>
         </li>
       </ul>
 
-      <ul className=" tw-absolute tw-left-0 tw-bottom-2  tw-m-0 tw-list-none tw-py-[0.2rem] tw-w-full">
-        <li className="tw-relative">
+      <ul className=" absolute left-0 bottom-2  m-0 list-none py-[0.2rem] w-full">
+        <li className="relative">
           <a
-            className="tw-text-gray-300 hover:tw-bg-white/10 hover:tw-outline-none
-             focus:tw-bg-white/10 active:tw-bg-white/10 hover:tw-text-gray-300
-              active:tw-outline-none tw-w-full tw-h-12 tw-flex tw-items-center tw-justify-center
-              tw-cursor-pointer"
+            className="text-gray-300 hover:bg-white/10 hover:outline-none
+             focus:bg-white/10 active:bg-white/10 hover:text-gray-300
+              active:outline-none w-full h-12 flex items-center justify-center
+              cursor-pointer"
           >
             <i className="fa-solid fa-gear"></i>
           </a>

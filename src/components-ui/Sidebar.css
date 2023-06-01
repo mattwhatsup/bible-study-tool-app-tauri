@@ -5,9 +5,9 @@
 }
 
 .sidebar-tabs > li {
-  @apply tw-border-l-2 tw-border-l-transparent;
+  @apply border-l-2 border-l-transparent;
 }
 
 .sidebar-tabs > li.active {
-  @apply tw-border-l-2 tw-border-l-white;
+  @apply border-l-2 border-l-white;
 }
