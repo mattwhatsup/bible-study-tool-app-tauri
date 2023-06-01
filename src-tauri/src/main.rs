@@ -5,9 +5,6 @@
 )]
 // #![allow(unused)]
 
-#[cfg(target_os = "macos")]
-#[macro_use]
-extern crate objc;
 // use bible_study_tool_app::Database;
 use rusqlite::Connection;
 use tauri::{http::version, Manager};

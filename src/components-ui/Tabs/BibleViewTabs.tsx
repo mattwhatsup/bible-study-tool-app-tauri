@@ -43,7 +43,7 @@ const BibleViewTabs: FunctionComponent<BibleViewTabsProps> = ({ ...props }) => {
         ])
       }}
       onSort={(fromIndex, toIndex) => {
-        toIndex = toIndex < 0 ? 0 : toIndex
+        console.log('from', fromIndex, 'to', toIndex)
         const item = items[fromIndex]
         setItems(
           update(items, {

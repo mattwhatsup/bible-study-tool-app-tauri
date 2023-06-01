@@ -30,7 +30,6 @@ const TabItem: FunctionComponent<TabItemProps> = ({
   findItemIndex,
   moveItem,
 }) => {
-  const labelRef = useRef<HTMLLabelElement>(null)
   const originalIndex = findItemIndex(uniqId)
   const [{ isDragging }, drag] = useDrag(
     () => ({
@@ -40,7 +39,7 @@ const TabItem: FunctionComponent<TabItemProps> = ({
         isDragging: monitor.isDragging(),
       }),
     }),
-    [uniqId, originalIndex, moveItem],
+    [uniqId, originalIndex],
   )
 
   const [{ isOver }, drop] = useDrop(
@@ -60,16 +59,17 @@ const TabItem: FunctionComponent<TabItemProps> = ({
           return
         }
         const originalIndex = (item as DragItem).originalIndex
+        console.log('drop')
+
         moveItem(originalIndex, overIndex)
       },
     }),
-    [findItemIndex],
+    [findItemIndex, moveItem],
   )
 
   return (
     <span ref={(element) => drop(drag(element))}>
       <label
-        ref={labelRef}
         className={`group tab tab-lifted relative px-6 ${
           isDragging ? 'opacity-30 !bg-cyan-400/30' : ''
         } ${isActive ? 'tab-active' : ''}  ${
