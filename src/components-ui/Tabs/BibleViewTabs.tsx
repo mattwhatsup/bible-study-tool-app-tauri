@@ -14,7 +14,7 @@ interface BibleViewTabsProps {}
 
 const BibleViewTabs: FunctionComponent<BibleViewTabsProps> = ({ ...props }) => {
   const [items, setItems] = useState<BibleTabItem[]>([
-    { uniqId: 'a', book: { id: 1, name: 'aaa' }, chapter: 1, verse: 1 },
+    { uniqId: 'a', book: { id: 1, name: '创世纪' }, chapter: 1, verse: 1 },
     { uniqId: 'b', book: { id: 2, name: 'bbb' }, chapter: 1, verse: 1 },
     { uniqId: 'c', book: { id: 3, name: 'ccc' }, chapter: 1, verse: 1 },
     { uniqId: 'd', book: { id: 4, name: 'ddd' }, chapter: 1, verse: 1 },

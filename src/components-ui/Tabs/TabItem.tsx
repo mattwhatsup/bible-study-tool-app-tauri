@@ -68,13 +68,14 @@ const TabItem: FunctionComponent<TabItemProps> = ({
   )
 
   return (
-    <span ref={(element) => drop(drag(element))}>
-      <label
-        className={`group tab tab-lifted relative px-6 ${
+    <>
+      {/*<span ref={(element) => drop(drag(element))}>*/}
+      <div
+        className={`group tab tab-lifted inline-block truncate ${
           isDragging ? 'opacity-30 !bg-cyan-400/30' : ''
         } ${isActive ? 'tab-active' : ''}  ${
           isOver ? '!bg-blue-gray-100/40' : ''
-        }`}
+        } !px-3.5`}
         onClick={onClick}
       >
         {label}
@@ -102,8 +103,9 @@ const TabItem: FunctionComponent<TabItemProps> = ({
             />
           </svg>
         </span>
-      </label>
-    </span>
+      </div>
+      {/*</span>*/}
+    </>
   )
 }
 

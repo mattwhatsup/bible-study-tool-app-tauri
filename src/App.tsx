@@ -29,7 +29,28 @@ interface AppProps {}
 const App: FunctionComponent<AppProps> = () => {
   return (
     <div className=" w-screen h-screen">
+      <div
+        draggable
+        onDragStart={(event) =>
+          event.dataTransfer.setData('text/plain', 'This text may be dragged')
+        }
+      >
+        drag
+      </div>
+      <div
+        onDrop={(event) => {
+          var data = event.dataTransfer.getData('Text')
+          console.log(data)
+        }}
+      >
+        drop area
+      </div>
       <BibleViewTabs />
+
+      <div className=" w-[100px]  truncate">
+        at TypeScriptParserMixin.parseBlockBody
+        (/Users/mattzhou/Documents/Bible/bible-study-tool/bible-study-tool-app/node_modules/@babel/parser/lib/index.js:13182:10)
+      </div>
     </div>
   )
 }
