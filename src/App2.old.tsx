@@ -1,6 +1,6 @@
 import { invoke } from '@tauri-apps/api'
 import { FunctionComponent, useState } from 'react'
-import Sidebar from './components-ui/Sidebar'
+import Sidebar from './components-ui/Sidebar/Sidebar'
 import { NavLink, Route, Routes } from 'react-router-dom'
 import { Switch } from '@material-tailwind/react'
 import DropDownButton from './components-ui/DropDownButton'
