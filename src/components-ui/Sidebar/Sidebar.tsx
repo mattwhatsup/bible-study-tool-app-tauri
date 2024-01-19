@@ -25,7 +25,7 @@ const Sidebar: FunctionComponent<SidebarProps> = () => {
     <nav
       className=" fixed top-0 left-0 z-[1035] h-screen w-12
       -translate-x-full data-[sidebar-hidden='false']:translate-x-0
-      overflow-hidden bg-blue-gray-800 shadow-md text-emerald-100"
+      overflow-hidden bg-blue-gray-800 shadow-md text-emerald-100 select-none"
       data-sidebar-hidden="false"
     >
       <ul className="relative m-0 list-none py-[0.2rem] sidebar-tabs">

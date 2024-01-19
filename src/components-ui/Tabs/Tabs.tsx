@@ -35,7 +35,7 @@ const Tabs = <T extends unknown>({
   )
 
   return (
-    <div className="flex">
+    <div className="flex ">
       <span className="tab-scroller-control">
         <button className="btn btn-outline btn-secondary btn-xs ">
           <i className="fa-solid fa-chevron-left"></i>
