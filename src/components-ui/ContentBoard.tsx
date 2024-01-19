@@ -1,11 +1,12 @@
 import { FunctionComponent } from 'react'
+import BibleBrowserHeader from './bible-browser/BibleBrowserHeader'
 
 interface ContentBoardProps {}
 
 const ContentBoard: FunctionComponent<ContentBoardProps> = () => {
   return (
     <div className=" grow h-screen flex flex-col bg-brown-300">
-      <div>head</div>
+      <BibleBrowserHeader />
       <div className=" bg-orange-200 grow overflow-y-auto p-2 pb-10">
         <p>创1:1 起初，神创造天地。</p>
         <p>创1:2 地是空虚混沌，渊面黑暗；神的灵运行在水面上。</p>

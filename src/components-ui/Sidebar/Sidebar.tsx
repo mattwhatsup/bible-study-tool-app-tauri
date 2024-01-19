@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   selectLayout,
   setActiveSidebarIndex,
-  toggleSidebar,
 } from '../../features/layout/layoutSlice'
 
 interface SidebarProps {}

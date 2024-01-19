@@ -35,8 +35,8 @@ const Tabs = <T extends unknown>({
   )
 
   return (
-    <div className="flex ">
-      <span className="tab-scroller-control">
+    <div className="flex max-w-full">
+      <span className="tab-scroller-control w-[90px] shrink-0">
         <button className="btn btn-outline btn-secondary btn-xs ">
           <i className="fa-solid fa-chevron-left"></i>
         </button>
@@ -44,28 +44,30 @@ const Tabs = <T extends unknown>({
           <i className="fa-solid fa-chevron-right"></i>
         </button>
       </span>
+      <div className="flex-1 w-1 overflow-hidden">
+        <div className="tabs flex-nowrap overflow-hidden max-w-full">
+          {items?.map((item, index) => (
+            <TabItem
+              key={tabUniqId(item)}
+              uniqId={tabUniqId(item)}
+              label={tabLabelText(item)}
+              isActive={activeId === tabUniqId(item)}
+              onClick={() => onChoose?.(tabUniqId(item))}
+              onRemove={() => {
+                onRemove?.(index)
+              }}
+              findItemIndex={findItemIndex}
+              moveItem={moveItem}
+            />
+          ))}
 
-      <div className="tabs flex-1 flex-nowrap overflow-hidden">
-        {items?.map((item, index) => (
-          <TabItem
-            key={tabUniqId(item)}
-            uniqId={tabUniqId(item)}
-            label={tabLabelText(item)}
-            isActive={activeId === tabUniqId(item)}
-            onClick={() => onChoose?.(tabUniqId(item))}
-            onRemove={() => {
-              onRemove?.(index)
-            }}
-            findItemIndex={findItemIndex}
-            moveItem={moveItem}
-          />
-        ))}
-
-        <span className="tab tab-lifted flex-1 tab-placeholder">
-          {/** empty */}
-        </span>
+          <span className="tab tab-lifted flex-1 tab-placeholder">
+            {/** empty */}
+          </span>
+        </div>
       </div>
-      <span className="tab tab-utility-control">
+
+      <span className="tab tab-utility-control w-[60px] shrink-0">
         <button className="btn btn-primary btn-xs " onClick={onAdd}>
           <i className="fa-solid fa-plus"></i>
         </button>
