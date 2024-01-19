@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 import devToolsEnhancer from 'remote-redux-devtools'
 import { counterReducer } from '../features/counter/counterSlice'
 import { layoutReducer } from '../features/layout/layoutSlice'
+import { bibleBrowserReducer } from '../features/bibleBrowser/bibleBrowserSlice'
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     layout: layoutReducer,
+    bibleBrowser: bibleBrowserReducer,
   },
   devTools: false,
   enhancers: [

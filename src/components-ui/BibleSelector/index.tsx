@@ -38,7 +38,7 @@ const BibleSelector: FunctionComponent<BibleSelectorProps> = ({
         },
       }}
     >
-      <div className=" flex items-center">
+      <div className=" flex items-center select-none">
         <BookDropDown />
         {selected?.book && (
           <>

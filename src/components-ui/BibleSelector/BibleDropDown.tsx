@@ -17,6 +17,7 @@ export type SelectValue = {
   book?: number
   chapter?: number
   verse?: number
+  verse2?: number
 }
 
 export interface BibleSelectorProps {
