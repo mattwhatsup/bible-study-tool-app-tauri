@@ -1,23 +1,25 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../../app/store'
 import { SelectValue } from '../../components-ui/BibleSelector/BibleDropDown'
-import { isEqual } from 'lodash'
+import { isEqual, omit } from 'lodash'
+import { v4 } from 'uuid'
 
 // Define a type for the slice state
 interface BibleBrowserState {
-  actived: number
+  actived: string
   tabs: Array<{
-    info: SelectValue
+    info: SelectValue & { uniqId: string }
     choosedVerses?: Array<number> // 选中经文
   }>
 }
 
 // Define the initial state using that type
+const firstId = v4()
 const initialState: BibleBrowserState = {
-  actived: 0,
+  actived: firstId,
   tabs: [
     {
-      info: {},
+      info: { uniqId: firstId },
     },
   ],
 }
@@ -27,21 +29,31 @@ export const bibleBrowserSlice = createSlice({
   initialState,
   reducers: {
     addTab: (state) => {
-      state.actived = state.tabs.push({ info: {} }) - 1
+      const newTab = { info: { uniqId: v4() } }
+      state.tabs.push(newTab)
+      state.actived = newTab.info.uniqId
     },
-    setActived: (state, { payload: index }: PayloadAction<number>) => {
-      state.actived = index
+    setActived: (state, { payload: uniqId }: PayloadAction<string>) => {
+      state.actived = uniqId
     },
-    removeTab: (state, { payload: index }: PayloadAction<number>) => {
+    removeTab: (state, { payload: uniqId }: PayloadAction<string>) => {
+      const index = state.tabs.findIndex((tab) => tab.info.uniqId === uniqId)
       state.tabs.splice(index, 1)
     },
     setTabInfo: (
       state,
       {
-        payload: { index, info },
-      }: PayloadAction<{ index: number; info: SelectValue }>,
+        payload: { uniqId, info },
+      }: PayloadAction<{ uniqId: string; info: SelectValue }>,
     ) => {
-      if (isEqual(state.tabs[index].info, info)) state.tabs[index] = { info }
+      const index = state.tabs.findIndex((tab) => tab.info.uniqId === uniqId)
+
+      if (
+        index !== -1 &&
+        !isEqual(omit(state.tabs[index].info, 'uniqId'), info)
+      ) {
+        state.tabs[index] = { info: { uniqId: v4(), ...info } }
+      }
     },
   },
 })
@@ -49,7 +61,10 @@ export const bibleBrowserSlice = createSlice({
 export const { addTab } = bibleBrowserSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectActivedTab = (state: RootState) =>
-  state.bibleBrowser.tabs[state.bibleBrowser.actived]
+export const selectActivedTab = (state: RootState) => {
+  return state.bibleBrowser.tabs.find(
+    (tab) => tab.info.uniqId === state.bibleBrowser.actived,
+  )
+}
 
 export const bibleBrowserReducer = bibleBrowserSlice.reducer
