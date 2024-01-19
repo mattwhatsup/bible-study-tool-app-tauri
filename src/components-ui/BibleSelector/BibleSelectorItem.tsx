@@ -12,7 +12,10 @@ const BibleSelectorItem: FunctionComponent<BibleSelectorItemProps> = ({
   onClick,
 }) => {
   return (
-    <li className={active ? 'active' : ''} onClick={onClick}>
+    <li
+      className={`hover:bg-gray-50 ${active ? 'active' : ''}`}
+      onClick={onClick}
+    >
       <span>{label}</span>
     </li>
   )

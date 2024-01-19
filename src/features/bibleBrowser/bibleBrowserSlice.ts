@@ -19,7 +19,7 @@ const initialState: BibleBrowserState = {
   actived: firstId,
   tabs: [
     {
-      info: { uniqId: firstId },
+      info: { uniqId: firstId, book: 783907 },
     },
   ],
 }
@@ -52,19 +52,23 @@ export const bibleBrowserSlice = createSlice({
         index !== -1 &&
         !isEqual(omit(state.tabs[index].info, 'uniqId'), info)
       ) {
-        state.tabs[index] = { info: { uniqId: v4(), ...info } }
+        state.tabs[index] = { info: { uniqId, ...info } }
       }
     },
   },
 })
 
-export const { addTab } = bibleBrowserSlice.actions
+export const { addTab, setTabInfo } = bibleBrowserSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectActivedTab = (state: RootState) => {
-  return state.bibleBrowser.tabs.find(
+  const actived = state.bibleBrowser.tabs.find(
     (tab) => tab.info.uniqId === state.bibleBrowser.actived,
   )
+  if (!actived) {
+    throw new Error('unavailable actived tab')
+  }
+  return actived
 }
 
 export const bibleBrowserReducer = bibleBrowserSlice.reducer
